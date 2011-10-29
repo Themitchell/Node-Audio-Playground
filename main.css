@@ -116,15 +116,15 @@ li {
 
 /* INSTRUMENTS */
 
-#instrument_players {
+#trigger_bank {
   overflow-y: auto;
 }
 
-#instrument_players .instrument h3 {
+#trigger_bank .trigger h3 {
   text-align: center;
 }
 
-#instrument_players .instrument .trigger {
+#trigger_bank .trigger {
   border: 1px solid black;
   cursor: pointer;
   width: 98px;
