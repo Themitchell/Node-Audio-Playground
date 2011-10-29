@@ -1,0 +1,27 @@
+.DS_Store
+log/*
+config/database.yml
+db/*.db
+tmp/*
+public/cache
+public/*/cache
+db/*.sql
+bugs.yaml*
+*.todo
+*~
+webrat-*.html
+rerun.txt
+.autotest
+.rvmrc
+.rdebugrc
+.bundle/
+build_options.yml
+vendor/cache/
+config.ru
+public/tmp/*.html
+
+
+# This Stuff is not needed publicly
+dsp.js
+original_samples/*
+.gitold/

@@ -1,0 +1,145 @@
+/* RESET */
+* { 
+  margin: 0; 
+  padding: 0;
+}
+
+body { 
+  font-family: helvetica neue, arial, sans;
+  font-size: 16px;
+}
+
+h1{ margin: 0 0 10px 0;}
+h2{ margin: 0 0 10px 0;}
+h3{ margin: 0 0 10px 0; height: 20px;}
+
+#container { 
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ul {
+  overflow-y: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0 20px 0;
+}
+
+li {
+  cursor: pointer;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+
+
+
+
+/* MIXER */
+
+#mixer {
+  margin-left: auto;
+  margin-right: auto;
+  overflow-y: auto;
+  height: 335px;
+  padding: 5px;
+  border: 1px solid black;
+  margin-bottom: 20px;
+}
+
+#mixer .channel_strip {
+  height: 313px;
+  padding: 10px;
+  border: 1px solid black;
+  width: 50px;
+  float: left;
+  margin-right: 5px;
+  position: relative;
+}
+
+#mixer .channel_strip h3 {
+  text-align: center;
+}
+
+#mixer .channel_strip .controls {
+  width: 50px;
+  height: 268px;
+}
+
+#mixer .channel_strip .buttons {
+  width: 50px;
+  height: 15px;
+}
+
+#mixer .channel_strip .controls .fader,
+#mixer .channel_strip .controls .meter {
+  height: 256px;
+  width: 6px;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+#mixer .channel_strip .controls .meter {
+  border: 1px solid #999;
+}
+
+#mixer .channel_strip .controls .fader .ui-slider-handle {
+  width: 15px;
+  height: 10px;
+}
+
+#mixer .channel_strip .buttons .mute_button,
+#mixer .channel_strip .buttons .solo_button {
+  height: 13px;
+  width: 13px;
+  border: 1px solid black;
+  bottom: 10px;
+  font-size: 9px;
+  text-align: center;
+  float: left;
+  display:block;
+  margin-right: 4px;
+}
+
+#mixer .channel_strip .unsolo {
+  background-color: deepskyblue;
+}
+
+#mixer .channel_strip .unmute {
+  background-color: orange;
+}
+
+
+
+/* INSTRUMENTS */
+
+#instrument_players {
+  overflow-y: auto;
+}
+
+#instrument_players .instrument h3 {
+  text-align: center;
+}
+
+#instrument_players .instrument .trigger {
+  border: 1px solid black;
+  cursor: pointer;
+  width: 98px;
+  height: 98px;
+  margin-right: 20px;
+  float: left;
+}
+
+
+
+/* Print */
+#print div {
+  width: 2px;
+  height: 2px;
+  margin: 0 4px 4px 0;
+  background-color: black;
+  display: inline-block;
+}
