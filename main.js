@@ -25,7 +25,8 @@ function Instrument(sound_bank, mixer, trigger_bank, type, printer) {
     
     function Channel(mixer, sound_source, type) {
         var self = this;
-        // create channel elements
+        
+        /* create channel elements */
         var mix_channel    = $("<div class='channel_strip' id='" + type + "'><h3>" + type + "</h3></div>");
         var fader          = $("<div class='fader'></div>");
         self.meter         = $("<canvas class='meter'></canvas>");
@@ -68,7 +69,7 @@ function Instrument(sound_bank, mixer, trigger_bank, type, printer) {
                 
                 This currently causes a loop whereby a solo no longer works as it uses
                 muteOrUnmute() to create a solo.
-            }*/
+            */
             if ($(button).hasClass('mute')) {
                 /* Set sound source level to zero */
                 sound_source.audio[0].volume = 0;
@@ -150,12 +151,14 @@ function Instrument(sound_bank, mixer, trigger_bank, type, printer) {
             frame_buffer_length     = self.audio[0].mozFrameBufferLength;
         }
         
-        function audioAvailable(event) {   
+        function audioAvailable(event) {
+            /* var time        = event.time; */
             var fb          = event.frameBuffer;
-            var time        = event.time; /* Not used - note to self! */
-            var signal      = new Float32Array(fb.length / channels); /* This is where we store the amplitude value per frame */
+            
+            /* This is where we store the amplitude value per frame */
+            var signal      = new Float32Array(fb.length / channels);
 
-            // If stereo signal, then merge into mono signal and place into signal array above
+            /* If stereo signal, then merge into mono signal and place into signal array above */
             if (channels == 2) {
                 for (var i = 0, fbl = frame_buffer_length / 2; i < fbl; i++ ) {
                     /* Load array with average amplitude values from each channel and convert to mono for display */
@@ -164,13 +167,18 @@ function Instrument(sound_bank, mixer, trigger_bank, type, printer) {
             } else if (channels == 1) {
                 signal = fb /* Load array with original mono channel */
             }
-            // iterate over the position of the playhead
+            /* iterate over the position of the playhead */
             for (var i = 0; i < frame_buffer_length; i++) {
                 animateMeter(signal[i]);
              }
         }
         
         function play() {
+            /*  TODO: This is carp. Surely I can load the buffer prior to playing the sample then
+                call play rather than having to stream like this. Should I just be using a playing
+                single waveform loop audio file. Why cannot I not just create audio out of a single 
+                and load that in place of a sample Float32Array
+            */
             if (type == 'osc') {
                 self.audio[0].mozWriteAudio(osc_samples);
             } else {
@@ -190,10 +198,11 @@ function Instrument(sound_bank, mixer, trigger_bank, type, printer) {
     }
     
     function animateMeter(sample) {
-        // var context = channel.meter[0].getContext('2d');
-        // context.clearRect(0, 0, channel.meter.width, channel.meter.height)
-        // var meter_value = (channel.meter.height()/100)*amplitudeAsPercentage(sample);
-        // debugger;
+        /*  var context = channel.meter[0].getContext('2d');
+            context.clearRect(0, 0, channel.meter.width, channel.meter.height)
+            var meter_value = (channel.meter.height()/100)*amplitudeAsPercentage(sample);
+            debugger;
+        */
     }
     
     function amplitudeAsPercentage(sample) {
