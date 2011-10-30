@@ -34,12 +34,10 @@ li {
 }
 
 
+/* GENERIC */
 
-
-
-/* MIXER */
-
-#mixer {
+#mixer,
+#trigger_bank {
   margin-left: auto;
   margin-right: auto;
   overflow-y: auto;
@@ -48,6 +46,9 @@ li {
   border: 1px solid black;
   margin-bottom: 20px;
 }
+
+
+/* MIXER */
 
 #mixer .channel_strip {
   height: 313px;
@@ -116,21 +117,19 @@ li {
 
 /* INSTRUMENTS */
 
-#trigger_bank {
-  overflow-y: auto;
+#trigger_bank .trigger {
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  float: left;
+  margin-right: 5px;
+  position: relative;
+  cursor: pointer;
 }
 
 #trigger_bank .trigger h3 {
   text-align: center;
-}
-
-#trigger_bank .trigger {
-  border: 1px solid black;
-  cursor: pointer;
-  width: 98px;
-  height: 98px;
-  margin-right: 20px;
-  float: left;
 }
 
 
