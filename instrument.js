@@ -8,6 +8,7 @@ var midiNoteFreq =  /* 0 */ [ 16.35,    17.32,    18.35,    19.45,    20.6,     
                     /* 7 */   2093,     2217.46,  2349.32,  2489.02,  2637.02,  2793.83,  2959.96,  3135.96,  3322.44,  3520,  3729.31,  3951.07,
                     /* 8 */   4186.01,  4434.92,  4698.64,  4978 ];
 
+
 function Instrument(sound_bank, mixer, trigger_bank, type, printer) {
     
     var sound_source            = new SoundSource(sound_bank, type);
@@ -21,6 +22,40 @@ function Instrument(sound_bank, mixer, trigger_bank, type, printer) {
         sound_source.play();
         trigger.animate({ backgroundColor: "#FFF"}, 5);
     });
+    
+    
+    
+    // var channels;
+    // var rate;
+    // var frame_buffer_length;
+    // 
+    // function loadedMetadata() {
+    //     channels                = self.audio[0].mozChannels;
+    //     rate                    = self.audio[0].mozSampleRate;
+    //     frame_buffer_length     = self.audio[0].mozFrameBufferLength;
+    // }
+    // 
+    // function audioAvailable(event) {
+    //     /* var time        = event.time; */
+    //     var fb          = event.frameBuffer;
+    //     
+    //     /* This is where we store the amplitude value per frame */
+    //     var signal      = new Float32Array(fb.length / channels);
+    // 
+    //     /* If stereo signal, then merge into mono signal and place into signal array above */
+    //     if (channels == 2) {
+    //         for (var i = 0, fbl = frame_buffer_length / 2; i < fbl; i++ ) {
+    //             /* Load array with average amplitude values from each channel and convert to mono for display */
+    //             signal[i] = (fb[2*i] + fb[2*i+1]) / 2;
+    //         }
+    //     } else if (channels == 1) {
+    //         signal = fb /* Load array with original mono channel */
+    //     }
+    //     /* iterate over the position of the playhead */
+    //     for (var i = 0; i < frame_buffer_length; i++) {
+    //         animateMeter(signal[i]);
+    //      }
+    // }
     
     
     function Channel(mixer, sound_source, type) {
@@ -140,38 +175,6 @@ function Instrument(sound_bank, mixer, trigger_bank, type, printer) {
         $(sound_bank).append(self.audio)
         
         self.audio[0].volume = valueToVolume(100);
-
-        var channels;
-        var rate;
-        var frame_buffer_length;
-
-        function loadedMetadata() {
-            channels                = self.audio[0].mozChannels;
-            rate                    = self.audio[0].mozSampleRate;
-            frame_buffer_length     = self.audio[0].mozFrameBufferLength;
-        }
-        
-        function audioAvailable(event) {
-            /* var time        = event.time; */
-            var fb          = event.frameBuffer;
-            
-            /* This is where we store the amplitude value per frame */
-            var signal      = new Float32Array(fb.length / channels);
-
-            /* If stereo signal, then merge into mono signal and place into signal array above */
-            if (channels == 2) {
-                for (var i = 0, fbl = frame_buffer_length / 2; i < fbl; i++ ) {
-                    /* Load array with average amplitude values from each channel and convert to mono for display */
-                    signal[i] = (fb[2*i] + fb[2*i+1]) / 2;
-                }
-            } else if (channels == 1) {
-                signal = fb /* Load array with original mono channel */
-            }
-            /* iterate over the position of the playhead */
-            for (var i = 0; i < frame_buffer_length; i++) {
-                animateMeter(signal[i]);
-             }
-        }
         
         function play() {
             /*  TODO: This is carp. Surely I can load the buffer prior to playing the sample then
@@ -187,8 +190,6 @@ function Instrument(sound_bank, mixer, trigger_bank, type, printer) {
             }
         }
         this.play = play;
-        
-        var lines = [];
     }
     
     
@@ -214,24 +215,3 @@ function Instrument(sound_bank, mixer, trigger_bank, type, printer) {
         }
     }
 }
-
-
-
-
-function init() {
-    var printer         = document.getElementById("printer");
-    var sound_bank      = document.getElementById("sound_bank");
-    var mixer           = document.getElementById("mixer");
-    var trigger_bank    = document.getElementById("trigger_bank");
-    
-    var menu_items      = document.getElementById('options').children;
-    
-    $(menu_items).click(function() {
-      var instrument = new Instrument(sound_bank, mixer, trigger_bank, this.innerHTML, printer);
-    })
-}
-
-$ = jQuery
-$(document).ready(function() {
-  init();
-});

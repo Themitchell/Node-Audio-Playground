@@ -36,19 +36,75 @@ li {
 
 /* GENERIC */
 
+#metronome,
 #mixer,
 #trigger_bank {
   margin-left: auto;
   margin-right: auto;
   overflow-y: auto;
-  height: 335px;
   padding: 5px;
   border: 1px solid black;
   margin-bottom: 20px;
 }
 
 
+/* METRONOME */
+
+#metronome {
+  height: 30px;
+  width: 10%;
+}
+
+#metronome label {
+  display:block;
+  float: left;
+}
+
+#metronome .state_wrapper {
+  float: left;
+  width: 7px;
+  height: 7px;
+  border: 1px solid black;
+  padding: 2px;
+  margin-right: 10px;
+}
+
+#metronome .state_wrapper .state {
+  clear:both;
+  width: 7px;
+  height: 7px;
+}
+
+#metronome .state_wrapper .state.on {
+  background-color: white;
+}
+
+#metronome .state_wrapper .state.on {
+  background-color: black;
+}
+
+#metronome .visual_aid_wrapper {
+  border: 1px solid black;
+  padding: 1px;
+  float: left;
+  width: 5px;
+  height: 5px;
+}
+
+#metronome .visual_aid_wrapper .visual_aid {
+  width: 5px;
+  height: 5px;
+  background-color: red;
+}
+
+
+
+
 /* MIXER */
+
+#mixer {
+  height: 335px;
+}
 
 #mixer .channel_strip {
   height: 313px;
@@ -115,7 +171,11 @@ li {
 
 
 
-/* INSTRUMENTS */
+/* TRIGGERS */
+
+#trigger_bank {
+  height: 75px;
+}
 
 #trigger_bank .trigger {
   border: 1px solid black;
