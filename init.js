@@ -2,10 +2,11 @@ function init() {
     var printer         = document.getElementById("printer");
     var visual_aid      = $('#metronome .visual_aid');
     var metro_toggle    = $('#metronome .state');
+    var tempo           = parseInt($('#metronome .bpm').val());
     var sound_bank      = document.getElementById("sound_bank");
     var mixer           = document.getElementById("mixer");
     var trigger_bank    = document.getElementById("trigger_bank");
-    var metronome       = new Metronome(visual_aid);
+    var metronome       = new Metronome(visual_aid, tempo);
     
     var menu_items      = document.getElementById('options').children;
     
@@ -14,7 +15,6 @@ function init() {
     });
     
     visual_aid.hide();
-    debugger;
     metro_toggle.click(function() {
         if (metro_toggle.hasClass('off')) {
              metronome.startClick();

@@ -1,6 +1,5 @@
-function Metronome(visual_aid) {
+function Metronome(visual_aid, tempo) {
     var self = this;
-    var tempo = 120;
     var counter;
     var interval;
     var click = new Audio('samples/click.ogg');
@@ -8,9 +7,9 @@ function Metronome(visual_aid) {
 
 
     function startClick() {
+        debugger;
         var spb     = 60/tempo; /* seconds per beat */
         var mspb    = 1000/spb; /* milliseconds per beat */
-        var click_sustain = 10; /* length in milliseconds of the click TODO: Convert to beats for more musical values! */
         
         /* Set counter to 0 */
         counter = 0;
@@ -20,7 +19,7 @@ function Metronome(visual_aid) {
         
         interval = setInterval(function () {
             performClick();
-        }, 200);
+        }, mspb);
     }
     this.startClick = startClick;
 

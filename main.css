@@ -51,7 +51,7 @@ li {
 /* METRONOME */
 
 #metronome {
-  height: 30px;
+  height: 90px;
   width: 10%;
 }
 
@@ -62,17 +62,16 @@ li {
 
 #metronome .state_wrapper {
   float: left;
-  width: 7px;
-  height: 7px;
+  width: 12px;
+  height: 12px;
   border: 1px solid black;
-  padding: 2px;
+  padding: 3px;
   margin-right: 10px;
 }
 
 #metronome .state_wrapper .state {
-  clear:both;
-  width: 7px;
-  height: 7px;
+  width: 12px;
+  height: 12px;
 }
 
 #metronome .state_wrapper .state.on {
@@ -84,17 +83,26 @@ li {
 }
 
 #metronome .visual_aid_wrapper {
+  clear: both;
   border: 1px solid black;
-  padding: 1px;
+  padding: 2px;
   float: left;
-  width: 5px;
-  height: 5px;
+  width: 7px;
+  height: 7px;
+  margin: 3px 18px 3px 0;
 }
 
 #metronome .visual_aid_wrapper .visual_aid {
-  width: 5px;
-  height: 5px;
+  width: 7px;
+  height: 7px;
   background-color: red;
+}
+
+#metronome input {
+  float: left;
+  clear: both;
+  margin-right: 10px;
+  width: 80px;
 }
 
 
