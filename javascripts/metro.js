@@ -1,18 +1,17 @@
 function Metronome(visual_aid, tempo) {
     var self = this;
-    var counter;
+    self.counter = 0;
     var interval;
     var click = new Audio('samples/click.ogg');
     self.state = 0;
 
 
     function startClick() {
-        debugger;
         var spb     = 60/tempo; /* seconds per beat */
         var mspb    = 1000/spb; /* milliseconds per beat */
         
         /* Set counter to 0 */
-        counter = 0;
+        self.counter = 0;
         
         /* Set state to on (1) */
         self.state = 1;
@@ -36,7 +35,8 @@ function Metronome(visual_aid, tempo) {
         click.play();
         visual_aid.fadeIn(100);
         visual_aid.fadeOut(100);
-        counter++;
+        self.counter++;
     }
+    this.performClick = performClick;
     
 }
