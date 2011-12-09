@@ -92,6 +92,6 @@ io.sockets.on('connection', function(socket) {
 	// when the client emits 'triggerinstrument', this listens and executes
 	socket.on('triggerinstrument', function(instrument_type) {
 		// we tell the client to execute 'sendtriggerinstrument' with 1 parameter
-		io.sockets.emit('sendtriggerinstrument', socket.username, instrument_type);
+		io.sockets.emit('sendtriggerinstrument', instrument_type);
 	});
 });

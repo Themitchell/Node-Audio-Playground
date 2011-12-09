@@ -26,9 +26,11 @@ function Instrument(socket, type) {
 
     // listener, whenever the server emits 'sendcreateinstrument', this clicks the instrument
     socket.on('sendtriggerinstrument', function(instrument_type) {
-      trigger.animate({ backgroundColor: "#AAA"}, 5);
-      sound_source.play();
-      trigger.animate({ backgroundColor: "#FFF"}, 5);
+      if (type == instrument_type) {
+        trigger.animate({ backgroundColor: "#AAA"}, 5);
+        sound_source.play();
+        trigger.animate({ backgroundColor: "#FFF"}, 5);
+      }
     });
 
     // var channels;
