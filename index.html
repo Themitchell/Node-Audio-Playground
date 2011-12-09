@@ -1,48 +1,56 @@
-<!DOCTYPE HTML>
-<html>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="/javascripts/init.js"></script>
+<script src="/javascripts/metro.js"></script>
+<script src="/javascripts/instrument.js"></script>
 
-  <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-  	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-  	
-  	<script src="javascripts/metro.js"></script>
-  	<script src="javascripts/instrument.js"></script>
-  	<script src="javascripts/init.js"></script>
-	
-  	<link rel="stylesheet" type="text/css" media="screen, projection, print" href="main.css">
-  </head>
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/main.css">
 
-  <body>
-    <div id="container">
-      <ul id="options">
-        <li>kick</li>
-        <li>snare</li>
-        <li>hat1</li>
-        <li>hat2</li>
-        <li>osc</li>
-      </ul>
-      
-      <div id="metronome">
-        <div class="state_wrapper"><div class="state off"></div></div>
-        <label>State (On/Off)</label>
-        
-        <div class="visual_aid_wrapper"><div class="visual_aid off"></div></div>
-        <label>Beat Indicator</label>
-        
-        <input type="text" name="bpm" class="bpm" value="120" />
-        <label>Bpm</label>
-        
-      </div>
-  
-      <div id="mixer"></div>
-  
-      <div id="trigger_bank"></div>
-      
-      <div id="sound_bank"></div>
-      
-      <div id="printer"></div>
-    </div>
-  </body>
 
-</html>
+<div id="container">
+  <ul id="options">
+    <li>kick</li>
+    <li>snare</li>
+    <li>hat1</li>
+    <li>hat2</li>
+    <li>osc</li>
+  </ul>
+
+  <div id="metronome">
+    <div class="state_wrapper"><div class="state off"></div></div>
+    <label>State (On/Off)</label>
+
+    <div class="visual_aid_wrapper"><div class="visual_aid off"></div></div>
+    <label>Beat Indicator</label>
+
+    <input type="text" name="bpm" class="bpm" value="120" />
+    <label>Bpm</label>
+
+  </div>
+
+  <div id="mixer"></div>
+
+  <div id="trigger_bank"></div>
+
+  <div id="sound_bank"></div>
+
+  <div id="printer"></div>
+
+  <div id="user">
+    <p>Hello <span class="username"><span></p>
+  <div>
+
+  <div id="connected_users">
+    <h1>Connected Users</h1>
+    <ul></ul>
+  </div>
+
+  <div id="conversation">
+    <h1>Conversation Stream</h1>
+    <ul id="stream"></ul>
+    <input id="data" style="width:200px;" />
+  	<input type="button" id="datasend" value="send" />
+  </div>
+</div>
