@@ -12,7 +12,7 @@ function Channel(socket, sound_source, type) {
   
   this.mute         = new Mute(socket, sound_source, this.volume.value, type);
   this.solo         = new Solo();
-  this.buttons      = $("<div class='buttons'></div>").append(this.mute.button, this.solo.button);
+  this.buttons      = $("<div class='buttons'></div>").append(this.mute.toggle.button, this.solo.button);
   
   this.element.append(this.controls, this.buttons);
   $(mixer).append(this.element);

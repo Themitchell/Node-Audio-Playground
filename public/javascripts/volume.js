@@ -11,6 +11,7 @@ function Volume(sound_source) {
     max: 127,
     value: 100,
     slide: function( event, ui ) {
+      debugger;
       self.value = valueToVolume(ui.value);
       sound_source.audio[0].volume = self.value;
     }

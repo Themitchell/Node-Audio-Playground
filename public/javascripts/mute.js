@@ -1,36 +1,42 @@
 function Mute(socket, sound_source, volume, type) {
-  this.button = $("<span class='mute_button mute'>M</span>");
+  var self = this;
+  this.toggle = new Toggle('internal', 'M', 'mute');
   
-  function toggle(button, sound_source, volume) {
-      /*  TODO: Work out how to make mutes force a solo when exiting solos exist
-          var solo_buttons = $('.solo_button.unsolo');
-          if (solo_buttons >= 0) {
-              this.next().click();
-          }
-          This currently causes a loop whereby a solo no longer works as it uses
-          muteOrUnmute() to create a solo.
-      */
-
-      if ($(button).hasClass('mute')) {
-          sound_source.audio[0].volume = 0;
-          $(button).addClass('unmute').removeClass('mute');
-      }
-      else if ($(button).hasClass('unmute')) {
-          sound_source.audio[0].volume = volume;
-          $(button).addClass('mute').removeClass('unmute');
-      }
+  // function toggle(button, sound_source, volume) {
+  //     /*  TODO: Work out how to make mutes force a solo when exiting solos exist
+  //         var solo_buttons = $('.solo_button.unsolo');
+  //         if (solo_buttons >= 0) {
+  //             this.next().click();
+  //         }
+  //         This currently causes a loop whereby a solo no longer works as it uses
+  //         muteOrUnmute() to create a solo.
+  //     */
+  // 
+  //     if ($(button).hasClass('mute')) {
+  //         sound_source.audio[0].volume = 0;
+  //         $(button).addClass('unmute').removeClass('mute');
+  //     }
+  //     else if ($(button).hasClass('unmute')) {
+  //         sound_source.audio[0].volume = volume;
+  //         $(button).addClass('mute').removeClass('unmute');
+  //     }
+  // }
+  
+  function handleResponse() {
+    if (self.toggle.state == 0) {
+      sound_source.audio[0].volume = 0;
+    }
+    else if (self.toggle.state == 0) {
+      sound_source.audio[0].volume = volume;
+    }
+    self.toggle.change_state();
   }
   
-  this.button.click(function() {
-    socket.emit('mutechannelinstrument', type)
-    toggle(this, sound_source, volume);
+  this.toggle.button.click( function( event ) {
+    socket.emit('mutechannelinstrument', type);
   });
   
   socket.on('sendmutechannelinstrument', function(instrument_type) {
-    if (type == instrument_type) {
-      self.trigger_pad.element.animate({ backgroundColor: "#AAA"}, 5);
-      self.play();
-      self.trigger_pad.element.animate({ backgroundColor: "#FFF"}, 5);
-    }
+    if (instrument_type == type) { handleResponse(); }
   });
 }
