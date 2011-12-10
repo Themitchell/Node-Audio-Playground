@@ -70,6 +70,6 @@ io.sockets.on('connection', function(socket) {
 	});
 	
 	socket.on('volumechannelinstrument', function(instrument_type, fader_value) {
-		io.sockets.emit('sendvolumechannelinstrument', instrument_type, fader_value), ;
+		io.sockets.emit('sendvolumechannelinstrument', instrument_type, fader_value);
 	});
 });

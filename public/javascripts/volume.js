@@ -1,4 +1,4 @@
-function Volume(sound_source) {
+function Volume(socket, sound_source, type) {
   var self = this;
   
   this.value  = valueToVolume(100);
@@ -6,6 +6,7 @@ function Volume(sound_source) {
   
   
   function handleFader(fader_value) {
+    sound_source.audio[0].volume = valueToVolume(fader_value);
     self.fader.slider({ value: fader_value });
   }
   
@@ -17,7 +18,7 @@ function Volume(sound_source) {
     max: 127,
     value: 100,
     slide: function( event, ui ) {
-      if (event.originalEvent.originalEvent == 'MouseEvent'){
+      if (event.originalEvent.originalEvent instanceof MouseEvent) {
         socket.emit('volumechannelinstrument', type, ui.value);
       }
     }

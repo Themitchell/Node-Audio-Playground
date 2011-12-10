@@ -6,7 +6,7 @@ function Channel(socket, sound_source, type) {
   var mixer         = document.getElementById("mixer");
   this.element      = $("<div class='channel_strip' id='" + type + "'><h3>" + type + "</h3></div>");
   
-  this.volume       = new Volume(sound_source);
+  this.volume       = new Volume(socket, sound_source, type);
   this.meter        = $("<canvas class='meter'></canvas>");
   this.controls     = $("<div class='controls'></div>").append(this.volume.fader, this.meter);
   
