@@ -10,11 +10,10 @@ var midiNoteFreq =  /* 0 */ [ 16.35,    17.32,    18.35,    19.45,    20.6,     
 
 
 function Instrument(socket, type) {
-    var mixer           = document.getElementById("mixer");
     var printer         = document.getElementById("printer");
     
     this.SoundSource    = new SoundSource(socket, sound_bank, type);    
-    this.Channel         = new Channel(mixer, this.SoundSource, type);
+    this.Channel        = new Channel(this.SoundSource, type);
 
     // var channels;
     // var rate;

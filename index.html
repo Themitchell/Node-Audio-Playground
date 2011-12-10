@@ -7,7 +7,12 @@
 <script src="/javascripts/metro.js"></script>
 <script src="/javascripts/instrument.js"></script>
 <script src="/javascripts/channel.js"></script>
+<script src="/javascripts/mute.js"></script>
+<script src="/javascripts/solo.js"></script>
+<script src="/javascripts/volume.js"></script>
 <script src="/javascripts/sound_source.js"></script>
+<script src="/javascripts/trigger_pad.js"></script>
+
 
 <link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/main.css">
 
@@ -20,7 +25,19 @@
     <li>hat2</li>
     <li>osc</li>
   </ul>
+  
+  <div id="user">
+    <p>Hello <span class="username"><span></p>
+  <div>
 
+  <div id="mixer"></div>
+
+  <div id="trigger_bank"></div>
+
+  <div id="sound_bank"></div>
+
+  <div id="printer"></div>
+  
   <div id="metronome">
     <div class="state_wrapper"><div class="state off"></div></div>
     <label>State (On/Off)</label>
@@ -30,20 +47,7 @@
 
     <input type="text" name="bpm" class="bpm" value="120" />
     <label>Bpm</label>
-
   </div>
-
-  <div id="mixer"></div>
-
-  <div id="trigger_bank"></div>
-
-  <div id="sound_bank"></div>
-
-  <div id="printer"></div>
-
-  <div id="user">
-    <p>Hello <span class="username"><span></p>
-  <div>
 
   <div id="connected_users">
     <h1>Connected Users</h1>
