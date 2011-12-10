@@ -64,4 +64,8 @@ io.sockets.on('connection', function(socket) {
 	socket.on('mutechannelinstrument', function(instrument_type) {
 		io.sockets.emit('sendmutechannelinstrument', instrument_type);
 	});
+	
+	socket.on('solochannelinstrument', function(instrument_type) {
+		io.sockets.emit('sendsolochannelinstrument', instrument_type);
+	});
 });

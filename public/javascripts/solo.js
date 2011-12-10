@@ -1,33 +1,39 @@
-function Solo() {
-  this.button = $("<span class='solo_button solo'>S</span>");
+function Solo(socket, type) {
+  var self = this;
+  this.toggle = new Toggle('internal', 'S', 'solo');
   
-  function toggle(button) {
-    if ($(button).hasClass('solo')) {
+  function handleToggle() {
+    if (self.toggle.state == 0) {
       
-      var enabled_solo_buttons = $('.solo_button.unsolo')
-      enabled_solo_buttons.each( function() {
-        this.click();
-      });
-      
-      $(button).addClass('unsolo').removeClass('solo');
-      
-      var disabled_mutes_except_own = $('.mute_button.mute').not($(button).prev());
-      disabled_mutes_except_own.each( function() {
-        this.click();
-      });
+      // var enabled_solo_buttons = $('.button.on.solo')
+      // enabled_solo_buttons.each( function() {
+      //   this.click();
+      // });
+      // 
+      // $(button).addClass('unsolo').removeClass('solo');
+      // 
+      // var disabled_mutes_except_own = $('.mute_button.mute').not($(button).prev());
+      // disabled_mutes_except_own.each( function() {
+      //   this.click();
+      // });
     }
-    else if ($(button).hasClass('unsolo')) {
+    else if (self.toggle.state == 1) {
 
-      $(button).addClass('solo').removeClass('unsolo');
-
-      var enabled_mutes_except_own = $('.mute_button.unmute').not($(button).prev());
-      enabled_mutes_except_own.each( function() {
-        this.click();
-      });
+      // $(button).addClass('solo').removeClass('unsolo');
+      // 
+      // var enabled_mutes_except_own = $('.mute_button.unmute').not($(button).prev());
+      // enabled_mutes_except_own.each( function() {
+      //   this.click();
+      // });
     }
+    self.toggle.change_state();
   }
   
-  this.button.click(function() {
-    toggle(this);
+  this.toggle.button.click( function() {
+    socket.emit('solochannelinstrument', type);
+  });
+  
+  socket.on('sendsolochannelinstrument', function(instrument_type) {
+    if (instrument_type == type) { handleToggle(); }
   });
 }

@@ -20,7 +20,7 @@ function Mute(socket, sound_source, volume, type) {
     self.toggle.change_state();
   }
   
-  this.toggle.button.click( function( event ) {
+  this.toggle.button.click( function() {
     socket.emit('mutechannelinstrument', type);
   });
   

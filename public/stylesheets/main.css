@@ -92,10 +92,10 @@ li {
 .toggle_wrapper .button.on {
   background-color: black;
 }
-.button.mute.on {
+.button.int_label.solo.on {
   background-color: deepskyblue;
 }
-.button.on.int_label.solo {
+.button.int_label.mute.on {
   background-color: orange;
 }
 
