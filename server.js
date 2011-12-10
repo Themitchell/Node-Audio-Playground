@@ -1,47 +1,17 @@
-var app = require('express').createServer()
-var io = require('socket.io').listen(app);
+var express = require('express')
+var app = express.createServer()
+var io  = require('socket.io').listen(app);
+
+app.configure(function(){
+  // Serve assets from public directory
+  app.use(express.static(__dirname + '/public'));
+});
 
 app.listen(8080);
 
 // routing
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
-});
-
-// Javascripts
-app.get('/javascripts/init.js', function (req, res) {
-  res.sendfile(__dirname + '/javascripts/init.js');
-});
-app.get('/javascripts/metro.js', function (req, res) {
-  res.sendfile(__dirname + '/javascripts/metro.js');
-});
-app.get('/javascripts/instrument.js', function (req, res) {
-  res.sendfile(__dirname + '/javascripts/instrument.js');
-});
-app.get('/javascripts/metro.js', function (req, res) {
-  res.sendfile(__dirname + '/javascripts/metro.js');
-});
-
-// Samples
-app.get('/samples/click.ogg', function (req, res) {
-  res.sendfile(__dirname + '/samples/click.ogg');
-});
-app.get('/samples/hat1.ogg', function (req, res) {
-  res.sendfile(__dirname + '/samples/hat1.ogg');
-});
-app.get('/samples/hat2.ogg', function (req, res) {
-  res.sendfile(__dirname + '/samples/hat2.ogg');
-});
-app.get('/samples/kick.ogg', function (req, res) {
-  res.sendfile(__dirname + '/samples/kick.ogg');
-});
-app.get('/samples/snare.ogg', function (req, res) {
-  res.sendfile(__dirname + '/samples/snare.ogg');
-});
-
-// Css
-app.get('/stylesheets/main.css', function (req, res) {
-  res.sendfile(__dirname + '/stylesheets/main.css');
 });
 
 // usernames which are currently connected to the chat
