@@ -3,10 +3,7 @@ function init() {
 
   var total_no_instruments = 8;
 
-  var visual_aid      = $('#metronome .visual_aid');
-  var metro_toggle    = $('#metronome .state');
-  var metronome       = new Metronome(visual_aid, tempo);
-  var tempo           = parseInt($('#metronome .bpm').val());
+  // var transport       = new Transport();
   var menu_items      = document.getElementById('options').children;
   var instruments     = new Array(total_no_instruments);
 
@@ -74,24 +71,6 @@ function init() {
   	});
   });
 
-
-  /*===== METRONOME =====*/
-
-  var metronome = new Metronome(visual_aid, tempo);
-
-  visual_aid.hide();
-  metro_toggle.click(function() {
-      if (metro_toggle.hasClass('off')) {
-           metronome.startClick();
-           metro_toggle.addClass('on');
-           metro_toggle.removeClass('off');
-
-      } else if (metro_toggle.hasClass('on')) {
-          metronome.stopClick();
-          metro_toggle.addClass('off');
-          metro_toggle.removeClass('on');
-      }
-  });
 }
 
 $(document).ready( function() {

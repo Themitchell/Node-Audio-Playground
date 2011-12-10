@@ -36,7 +36,7 @@ li {
 
 /* GENERIC */
 
-#metronome,
+#transport,
 #mixer,
 #trigger_bank {
   margin-left: auto;
@@ -50,17 +50,17 @@ li {
 
 /* METRONOME */
 
-#metronome {
+#transport {
   height: 90px;
   width: 10%;
 }
 
-#metronome label {
+#transport label {
   display:block;
   float: left;
 }
-
-#metronome .state_wrapper {
+/* Buttons & Toggles */
+.toggle_wrapper {
   float: left;
   width: 12px;
   height: 12px;
@@ -69,20 +69,23 @@ li {
   margin-right: 10px;
 }
 
-#metronome .state_wrapper .state {
+.toggle_wrapper .button {
   width: 12px;
   height: 12px;
 }
 
-#metronome .state_wrapper .state.on {
+.toggle_wrapper .button.on {
   background-color: white;
 }
 
-#metronome .state_wrapper .state.on {
+.toggle_wrapper .button.on {
   background-color: black;
 }
 
-#metronome .visual_aid_wrapper {
+
+
+
+#transport .visual_aid_wrapper {
   clear: both;
   border: 1px solid black;
   padding: 2px;
@@ -92,13 +95,13 @@ li {
   margin: 3px 18px 3px 0;
 }
 
-#metronome .visual_aid_wrapper .visual_aid {
+#transport .visual_aid_wrapper .visual_aid {
   width: 7px;
   height: 7px;
   background-color: red;
 }
 
-#metronome input {
+#transport input {
   float: left;
   clear: both;
   margin-right: 10px;
@@ -198,6 +201,13 @@ li {
 
 #trigger_bank .trigger h3 {
   text-align: center;
+}
+
+
+
+/* CHAT */
+#chat .input {
+  width: 200px;
 }
 
 

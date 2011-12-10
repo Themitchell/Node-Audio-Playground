@@ -1,4 +1,4 @@
-function Mute(sound_source, volume) {
+function Mute(socket, sound_source, volume, type) {
   this.button = $("<span class='mute_button mute'>M</span>");
   
   function toggle(button, sound_source, volume) {
@@ -22,6 +22,15 @@ function Mute(sound_source, volume) {
   }
   
   this.button.click(function() {
-      toggle(this, sound_source, volume);
+    socket.emit('mutechannelinstrument', type)
+    toggle(this, sound_source, volume);
+  });
+  
+  socket.on('sendmutechannelinstrument', function(instrument_type) {
+    if (type == instrument_type) {
+      self.trigger_pad.element.animate({ backgroundColor: "#AAA"}, 5);
+      self.play();
+      self.trigger_pad.element.animate({ backgroundColor: "#FFF"}, 5);
+    }
   });
 }

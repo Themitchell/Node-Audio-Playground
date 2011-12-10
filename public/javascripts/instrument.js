@@ -13,7 +13,7 @@ function Instrument(socket, type) {
     var printer         = document.getElementById("printer");
     
     this.SoundSource    = new SoundSource(socket, sound_bank, type);    
-    this.Channel        = new Channel(this.SoundSource, type);
+    this.Channel        = new Channel(socket, this.SoundSource, type);
 
     // var channels;
     // var rate;
@@ -54,4 +54,12 @@ function Instrument(socket, type) {
             debugger;
         */
     }
+}
+
+function initInstrument() {
+  socket.on('sendcreateinstrument', function(username, instrument_type) {
+    var instruments = new Array(total_no_instruments);
+    var instrument  = new Instrument(socket, instrument_type);
+    instruments.push(instrument);
+  });
 }

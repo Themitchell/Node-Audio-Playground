@@ -53,15 +53,15 @@ io.sockets.on('connection', function(socket) {
 	
 	
 	
-	// when the client emits 'createinstrument', this listens and executes
 	socket.on('createinstrument', function(instrument_type) {
-		// we tell the client to execute 'sendcreateinstrument' with 1 parameter
 		io.sockets.emit('sendcreateinstrument', socket.username, instrument_type);
 	});
 	
-	// when the client emits 'triggerinstrument', this listens and executes
 	socket.on('triggerinstrument', function(instrument_type) {
-		// we tell the client to execute 'sendtriggerinstrument' with 1 parameter
 		io.sockets.emit('sendtriggerinstrument', instrument_type);
+	});
+	
+	socket.on('mutechannelinstrument', function(instrument_type) {
+		io.sockets.emit('sendmutechannelinstrument', instrument_type);
 	});
 });

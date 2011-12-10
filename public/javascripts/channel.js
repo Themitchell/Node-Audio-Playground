@@ -1,4 +1,4 @@
-function Channel(sound_source, type) {
+function Channel(socket, sound_source, type) {
   
   /* GLOBAL SETUP */
 
@@ -10,7 +10,7 @@ function Channel(sound_source, type) {
   this.meter        = $("<canvas class='meter'></canvas>");
   this.controls     = $("<div class='controls'></div>").append(this.volume.fader, this.meter);
   
-  this.mute         = new Mute(sound_source, this.volume.value);
+  this.mute         = new Mute(socket, sound_source, this.volume.value, type);
   this.solo         = new Solo();
   this.buttons      = $("<div class='buttons'></div>").append(this.mute.button, this.solo.button);
   

@@ -10,4 +10,11 @@ function TriggerPad(socket, sound_bank, type) {
   this.element.click(function() { 
     socket.emit('triggerinstrument', type);
   });
+  
+  socket.on('sendtriggerinstrument', function(instrument_type) {
+    if (type == instrument_type) {
+      self.element.animate({ backgroundColor: "#AAA"}, 5);
+      self.element.animate({ backgroundColor: "#FFF"}, 5);
+    }
+  });
 }

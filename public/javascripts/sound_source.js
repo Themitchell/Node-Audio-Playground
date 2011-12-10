@@ -18,17 +18,6 @@ function SoundSource(socket, sound_bank, type) {
       this.audio[0].setAttribute('class', 'file');
     }
     $(sound_bank).append(this.audio);
-    
-    
-    socket.on('sendtriggerinstrument', function(instrument_type) {
-      if (type == instrument_type) {
-        self.trigger_pad.element.animate({ backgroundColor: "#AAA"}, 5);
-        self.play();
-        self.trigger_pad.element.animate({ backgroundColor: "#FFF"}, 5);
-      }
-    });
-    
-    
 
     function play() {
         /*  TODO: This is carp. Surely I can load the buffer prior to playing the sample then
@@ -44,4 +33,10 @@ function SoundSource(socket, sound_bank, type) {
         }
     }
     this.play = play;
+    
+    socket.on('sendtriggerinstrument', function(instrument_type) {
+      if (type == instrument_type) {
+        self.play();
+      }
+    });
 }
