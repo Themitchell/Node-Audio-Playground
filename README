@@ -4,3 +4,6 @@ This project started out as originally an experiment in fiddling with Firefox's 
 
 I have now implemented the node backend to this system which allows messages to be communicated very quickly from one browser to antoher. Now we just need to actually work out the audio stuff and build us a DAW in the browser!
 
+So the project uses node for messages alongside Express and Socket.io packages for the server side.
+
+The app has widest support in Firefox. Using Firefox's audio api we have much more control over audio. I am however yet to see how far we can push this in other browsers.
