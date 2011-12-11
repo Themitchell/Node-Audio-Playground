@@ -4,9 +4,11 @@
   padding: 0;
 }
 
-body { 
+body {
+  background-color: black;
   font-family: helvetica neue, arial, sans;
   font-size: 16px;
+  color: white;
 }
 
 h1{ margin: 0 0 10px 0;}
@@ -33,37 +35,39 @@ li {
   margin-right: 10px;
 }
 
+/* NAME & MENU */
+#user {
+  margin-top: 10px;
+  height: 50px;
+}
+#user h2 {
+  height: 30px;
+  line-height: 30px;
+  padding: 10px 1%;
+  background-color: #AC000E;
+}
 
 /* GENERIC */
 
 #transport,
 #mixer,
-#trigger_bank {
+#trigger_bank,
+.dual_column {
   margin-left: auto;
   margin-right: auto;
-  overflow-y: auto;
+  overflow-x: scroll;
   padding: 5px;
-  border: 1px solid black;
+  border: 1px solid #AC000E;
   margin-bottom: 20px;
 }
 
 
-/* METRONOME */
+/* BUTTONS & TOGGLES */
 
-#transport {
-  height: 90px;
-  width: 10%;
-}
-
-#transport label {
-  display:block;
-  float: left;
-}
-/* Buttons & Toggles */
 .button.int_label {
   height: 13px;
   width: 13px;
-  border: 1px solid black;
+  border: 1px solid #AC000E;
   bottom: 10px;
   font-size: 9px;
   text-align: center;
@@ -75,7 +79,7 @@ li {
   float: left;
   width: 12px;
   height: 12px;
-  border: 1px solid black;
+  border: 1px solid #AC000E;
   padding: 3px;
   margin-right: 10px;
 }
@@ -90,7 +94,7 @@ li {
 }
 
 .toggle_wrapper .button.on {
-  background-color: black;
+  background-color: green;
 }
 .button.int_label.solo.on {
   background-color: deepskyblue;
@@ -100,10 +104,21 @@ li {
 }
 
 
+/* TRANSPORT */
+
+#transport {
+  height: 90px;
+  width: 10%;
+}
+
+#transport label {
+  display:block;
+  float: left;
+}
 
 #transport .visual_aid_wrapper {
   clear: both;
-  border: 1px solid black;
+  border: 1px solid #AC000E;
   padding: 2px;
   float: left;
   width: 7px;
@@ -114,7 +129,7 @@ li {
 #transport .visual_aid_wrapper .visual_aid {
   width: 7px;
   height: 7px;
-  background-color: red;
+  background-color: white;
 }
 
 #transport input {
@@ -130,13 +145,13 @@ li {
 /* MIXER */
 
 #mixer {
-  height: 335px;
+  height: 350px;
 }
 
 #mixer .channel_strip {
   height: 313px;
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid #AC000E;
   width: 50px;
   float: left;
   margin-right: 5px;
@@ -180,11 +195,11 @@ li {
 /* TRIGGERS */
 
 #trigger_bank {
-  height: 75px;
+  height: 88px;
 }
 
 #trigger_bank .trigger {
-  border: 1px solid black;
+  border: 1px solid #AC000E;
   width: 50px;
   height: 50px;
   padding: 10px;
@@ -199,11 +214,56 @@ li {
 }
 
 
-
-/* CHAT */
-#chat .input {
-  width: 200px;
+/* DUAL COLUMN */
+.dual_column {
+  padding: 0.6%;
+  height: 360px;
+  overflow: hidden;
 }
+  /* CONNECTED USERS */
+  #connected_users {
+    border: 1px solid #AC000E;
+    padding: 15px 1%;
+    width: 15%;
+    float: left;
+    height: 325px;
+    margin-right: 1%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  #connected_users ul li {
+    float: none;
+  }
+
+  /* CHAT */
+  #chat {
+    padding: 15px 1%;
+    height: 325px;
+    border: 1px solid #AC000E;
+    float: left;
+    width: 79%;
+  }
+  
+  #chat #stream {
+    height: 250px;
+    padding: 0px;
+    overflow-y: scroll;
+  }
+  
+  #chat #stream li {
+    float: none;
+    margin-bottom: 10px;
+  }
+
+  #chat #message {
+    width: 90%;
+    margin-right: 1%;
+    margin-bottom: 18px;
+  }
+  
+  #chat #send_button {
+    width: 8%;
+  }
 
 
 
@@ -212,6 +272,6 @@ li {
   width: 2px;
   height: 2px;
   margin: 0 4px 4px 0;
-  background-color: black;
+  background-color: white;
   display: inline-block;
 }

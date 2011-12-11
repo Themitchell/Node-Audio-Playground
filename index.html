@@ -4,6 +4,8 @@
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script src="/javascripts/utils.js"></script>
 <script src="/javascripts/init.js"></script>
+<script src="/javascripts/connection.js"></script>
+<script src="/javascripts/chat.js"></script>
 <!-- <script src="/javascripts/transport.js"></script> -->
 <script src="/javascripts/instrument.js"></script>
 <script src="/javascripts/channel.js"></script>
@@ -20,6 +22,8 @@
 
 
 <div id="container">
+  <div id="user"></div>
+
   <ul id="options">
     <li>kick</li>
     <li>snare</li>
@@ -27,10 +31,6 @@
     <li>hat2</li>
     <li>osc</li>
   </ul>
-  
-  <div id="user">
-    <p>Hello <span class="username"><span></p>
-  </div>
 
   <div id="mixer"></div>
 
@@ -42,15 +42,11 @@
   
   <!-- <div id="transport"></div> -->
 
-  <div id="connected_users">
-    <h1>Connected Users</h1>
-    <ul></ul>
-  </div>
+  <div class="dual_column">
+    
+    <div id="connected_users"></div>
 
-  <div id="conversation">
-    <h1>Conversation Stream</h1>
-    <ul id="stream"></ul>
-    <input id="data" style="width:200px;" />
-  	<input type="button" id="datasend" value="send" />
+    <div id="chat"></div>
+    
   </div>
 </div>
