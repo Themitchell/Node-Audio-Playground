@@ -1,3 +1,6 @@
-=== Experimentation with audio ===
+Ok a little info..
 
-Messing about with the audio api. Let's see what can be done!
+This project started out as originally an experiment in fiddling with Firefox's Audio Api. Since then the idea to simply render audio from the browser has been changed a lot. 
+
+I have now implemented the node backend to this system which allows messages to be communicated very quickly from one browser to antoher. Now we just need to actually work out the audio stuff and build us a DAW in the browser!
+
