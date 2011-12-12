@@ -1,21 +1,21 @@
 function init() {
   var connection  = new Connection();
   var chat        = new Chat(connection);
+  var menu;
+  
   
   
   /* GLOBALS */
   var instruments           = new Array(total_no_instruments);
   var total_no_instruments  = 8;
-  var menu_items            = document.getElementById('options').children;
   // var transport            = new Transport();
 
-  connection.socket.on('updateCreateInstrument', function(username, instrument_type) {
-    var instrument = new Instrument(connection.socket, instrument_type);
-    instruments.push(instrument);
+  connection.socket.on('createMenu', function(instrument_types) {
+    var menu = new Menu(connection, instrument_types);
   });
-
-  $(menu_items).click( function() {
-    connection.socket.emit('sendCreateInstrument', this.innerHTML);
+  
+  connection.socket.on('createInstrument', function(username, instrument_type) {
+    var instrument = new Instrument(connection.socket, instrument_type);
   });
 }
 
