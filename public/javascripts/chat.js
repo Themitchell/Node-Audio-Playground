@@ -15,10 +15,10 @@ function Chat(connection) {
   });
 
   // On ENTER keypress
-  $('#data').keypress(function(e) {
+  this.message_box.keypress(function(e) {
     if(e.which == 13) {
       $(this).blur();
-      $('#datasend').focus().click();
+      self.send_button.focus().click();
     }
   });
 	

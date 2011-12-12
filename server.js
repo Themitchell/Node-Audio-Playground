@@ -33,7 +33,6 @@ io.sockets.on('connection', function(socket) {
 	
 	socket.on('disconnect', function() {
 	  for (var i=0; i<usernames.length; i++) {
-	    console.log(usernames[i]);
 	    if (usernames[i] == socket.username) { usernames.splice(i, 1); }
 	  }
 		io.sockets.emit('updateConnectedUsers', usernames);
