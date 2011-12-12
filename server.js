@@ -17,25 +17,26 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
+
+
 io.sockets.on('connection', function(socket) {
+  
   // USER EVENTS
   socket.on('adduser', function(username) {
 	  socket.username = username;
-	  sessions.all.push(username);
+	  sessions.all_entries.push(username);
 	  
 	  socket.emit('createMenu', instruments.accepted_types);
 	  socket.emit('setCurrentUser', username);
-    io.sockets.emit('updateConnectedUsers', sessions.all);
+    io.sockets.emit('updateConnectedUsers', sessions.all_entries);
     
     socket.emit('updateChatMessage', 'SERVER', 'You have connected as ' + username);
     socket.broadcast.emit('updateChatMessage', 'SERVER', username + ' has connected');
 	});
 	
 	socket.on('disconnect', function() {
-    // for (var i=0; i<sessions.all.length; i++) {
-    //   if (sessions.all[i] == socket.username) { sessions.all.splice(i, 1); }
-    // }
-		io.sockets.emit('updateConnectedUsers', global.sessions);
+    sessions.remove_entry(socket.username)
+		io.sockets.emit('updateConnectedUsers', sessions.all_entries);
     socket.broadcast.emit('updateChatMessage', 'SERVER', socket.username + ' has disconnected');
 	});
 	
