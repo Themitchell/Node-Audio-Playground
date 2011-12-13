@@ -9,9 +9,10 @@ var midiNoteFreq =  /* 0 */ [ 16.35,    17.32,    18.35,    19.45,    20.6,     
                     /* 8 */   4186.01,  4434.92,  4698.64,  4978 ];
 
 
-function Instrument(socket, type) {
+function Instrument(socket, identifier) {
     var printer         = document.getElementById("printer");
     
-    this.SoundSource    = new SoundSource(socket, sound_bank, type);    
-    this.Channel        = new Channel(socket, this.SoundSource, type);
+    this.identifier     = identifier;
+    this.sound_source   = new SoundSource(socket, sound_bank, this.identifier);
+    this.channel        = new Channel(socket, this.SoundSource, this.identifier.type);
 }

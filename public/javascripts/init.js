@@ -14,8 +14,8 @@ function init() {
     var menu = new Menu(connection, instrument_types);
   });
   
-  connection.socket.on('createInstrument', function(username, instrument_type) {
-    var instrument = new Instrument(connection.socket, instrument_type);
+  connection.socket.on('createInstrument', function(username, identifier) {
+    var instrument = new Instrument(connection.socket, identifier);
   });
 }
 

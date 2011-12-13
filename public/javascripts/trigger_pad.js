@@ -1,18 +1,18 @@
-function TriggerPad(socket, sound_bank, type) {
+function TriggerPad(socket, sound_bank, current_identifier) {
 
   var self = this;
 
   var trigger_bank  = document.getElementById("trigger_bank");
-  this.element      = $("<div class='trigger'><h3>" + type + "</h3></div>");
+  this.element      = $("<div class='trigger'><h3>" + current_identifier.type + "</h3></div>");
   $(trigger_bank).append(this.element)
   
 
-  this.element.click(function() { 
-    socket.emit('triggerinstrument', type);
+  this.element.click(function() {
+    socket.emit('triggerinstrument', current_identifier);
   });
   
-  socket.on('sendtriggerinstrument', function(instrument_type) {
-    if (type == instrument_type) {
+  socket.on('sendtriggerinstrument', function(identifier) {
+    if (current_identifier.id == identifier.id) {
       self.element.animate({ backgroundColor: "#AC000E"}, 6);
       self.element.animate({ backgroundColor: "#000"}, 6);
     }

@@ -17,8 +17,6 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-
-
 io.sockets.on('connection', function(socket) {
   
   // USER EVENTS
@@ -50,11 +48,12 @@ io.sockets.on('connection', function(socket) {
 
   // AUDIO EVENTS
 	socket.on('sendCreateInstrument', function(instrument_type) {
-		io.sockets.emit('createInstrument', socket.username, instrument_type);
+	  var instrument_identifier = instruments.create_identifier(instrument_type);
+    io.sockets.emit('createInstrument', socket.username, instrument_identifier);
 	});
 	
-	socket.on('triggerinstrument', function(instrument_type) {
-		io.sockets.emit('sendtriggerinstrument', instrument_type);
+	socket.on('triggerinstrument', function(instrument_identifier) {
+		io.sockets.emit('sendtriggerinstrument', instrument_identifier);
 	});
 	
 	socket.on('mutechannelinstrument', function(instrument_type) {
