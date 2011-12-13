@@ -1,4 +1,4 @@
-function Solo(socket, type) {
+function Solo(socket, current_identifier) {
   var self = this;
   this.toggle = new Toggle('internal', 'S', 'solo');
   
@@ -30,10 +30,10 @@ function Solo(socket, type) {
   }
   
   this.toggle.button.click( function() {
-    socket.emit('solochannelinstrument', type);
+    socket.emit('solochannelinstrument', current_identifier);
   });
   
-  socket.on('sendsolochannelinstrument', function(instrument_type) {
-    if (instrument_type == type) { handleToggle(); }
+  socket.on('sendsolochannelinstrument', function(identifier) {
+    if (current_identifier.id == identifier.id) { handleToggle(); }
   });
 }

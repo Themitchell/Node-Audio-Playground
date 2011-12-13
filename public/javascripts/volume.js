@@ -1,4 +1,4 @@
-function Volume(socket, sound_source, type) {
+function Volume(socket, sound_source, current_identifier) {
   var self = this;
   
   this.value  = valueToVolume(100);
@@ -19,17 +19,12 @@ function Volume(socket, sound_source, type) {
     value: 100,
     slide: function( event, ui ) {
       if (event.originalEvent.originalEvent instanceof MouseEvent) {
-        socket.emit('volumechannelinstrument', type, ui.value);
+        socket.emit('volumechannelinstrument', current_identifier, ui.value);
       }
     }
   });
   
-  socket.on('sendvolumechannelinstrument', function(instrument_type, fader_value) {
-    if (instrument_type == type) { handleFader(fader_value); }
+  socket.on('sendvolumechannelinstrument', function(identifier, fader_value) {
+    if (current_identifier.id == identifier.id) { handleFader(fader_value); }
   });
 }
-
-
-// 
-// self.value = valueToVolume(ui.value);
-// sound_source.audio[0].volume = self.value;

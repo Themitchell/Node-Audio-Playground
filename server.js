@@ -56,15 +56,15 @@ io.sockets.on('connection', function(socket) {
 		io.sockets.emit('sendtriggerinstrument', instrument_identifier);
 	});
 	
-	socket.on('mutechannelinstrument', function(instrument_type) {
-		io.sockets.emit('sendmutechannelinstrument', instrument_type);
+	socket.on('mutechannelinstrument', function(instrument_identifier) {
+		io.sockets.emit('sendmutechannelinstrument', instrument_identifier);
 	});
 	
-	socket.on('solochannelinstrument', function(instrument_type) {
-		io.sockets.emit('sendsolochannelinstrument', instrument_type);
+	socket.on('solochannelinstrument', function(instrument_identifier) {
+		io.sockets.emit('sendsolochannelinstrument', instrument_identifier);
 	});
 	
-	socket.on('volumechannelinstrument', function(instrument_type, fader_value) {
-		io.sockets.emit('sendvolumechannelinstrument', instrument_type, fader_value);
+	socket.on('volumechannelinstrument', function(instrument_identifier, fader_value) {
+		io.sockets.emit('sendvolumechannelinstrument', instrument_identifier, fader_value);
 	});
 });

@@ -14,5 +14,5 @@ function Instrument(socket, identifier) {
     
     this.identifier     = identifier;
     this.sound_source   = new SoundSource(socket, sound_bank, this.identifier);
-    this.channel        = new Channel(socket, this.SoundSource, this.identifier.type);
+    this.channel        = new Channel(socket, this.sound_source, this.identifier);
 }

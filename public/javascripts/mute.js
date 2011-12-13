@@ -1,4 +1,4 @@
-function Mute(socket, sound_source, volume, type) {
+function Mute(socket, sound_source, volume, current_identifier) {
   var self = this;
   this.toggle = new Toggle('internal', 'M', 'mute');
   
@@ -21,10 +21,10 @@ function Mute(socket, sound_source, volume, type) {
   }
   
   this.toggle.button.click( function() {
-    socket.emit('mutechannelinstrument', type);
+    socket.emit('mutechannelinstrument', current_identifier);
   });
   
-  socket.on('sendmutechannelinstrument', function(instrument_type) {
-    if (instrument_type == type) { handleToggle(); }
+  socket.on('sendmutechannelinstrument', function(identifier) {
+    if (current_identifier.id == identifier.id) { handleToggle(); }
   });
 }
