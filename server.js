@@ -29,11 +29,14 @@ io.sockets.on('connection', function(socket) {
     io.sockets.emit('updateConnectedUsers', sessions.all_entries);
     
     socket.emit('updateChatMessage', 'SERVER', 'You have connected as ' + username);
+    for (var i=0; i<instruments.all_entries; i++) {
+      socket.emit('createInstrument', socket.username, identifier); 
+    }
     socket.broadcast.emit('updateChatMessage', 'SERVER', username + ' has connected');
 	});
 	
 	socket.on('disconnect', function() {
-    sessions.remove_entry(socket.username)
+    sessions.remove_entry(socket.username);
 		io.sockets.emit('updateConnectedUsers', sessions.all_entries);
     socket.broadcast.emit('updateChatMessage', 'SERVER', socket.username + ' has disconnected');
 	});
