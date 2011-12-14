@@ -10,7 +10,7 @@ function Connection() {
   
   this.socket.on('connect', function() {
     self.username = prompt("What's your name?");
-    self.socket.emit('adduser', self.username);
+    self.socket.emit('addUser', self.username);
   });
 
   this.socket.on('setCurrentUser', function(username) {

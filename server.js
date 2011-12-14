@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 io.sockets.on('connection', function(socket) {
   
   // USER EVENTS
-  socket.on('adduser', function(username) {
+  socket.on('addUser', function(username) {
 	  socket.username = username;
 	  sessions.all_entries.push(username);
 	  
@@ -29,7 +29,8 @@ io.sockets.on('connection', function(socket) {
     io.sockets.emit('updateConnectedUsers', sessions.all_entries);
     
     socket.emit('updateChatMessage', 'SERVER', 'You have connected as ' + username);
-    for (var i=0; i<instruments.all_entries; i++) {
+    for (var i=0; i<instruments.all_entries.length; i++) {
+      var identifier = instruments.all_entries[i];
       socket.emit('createInstrument', socket.username, identifier); 
     }
     socket.broadcast.emit('updateChatMessage', 'SERVER', username + ' has connected');
