@@ -72,6 +72,7 @@ io.sockets.on('connection', function(socket) {
 	
 	socket.on('solochannelinstrument', function(instrument_identifier) {
 	  console.log("Soloing Instrument: " + instrument_identifier.id);
+	  instruments.update_identifier(instrument_identifier);
 		io.sockets.emit('sendsolochannelinstrument', instrument_identifier);
 	});
 	
