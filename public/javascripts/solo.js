@@ -1,8 +1,10 @@
 function Solo(socket, current_identifier) {
   var self = this;
-  this.toggle = new Toggle('internal', 'S', 'solo');
+  this.toggle = new Toggle(current_identifier.solod, 'internal', 'S', 'solo');
   
-  function handleToggle() {
+  function handleToggle(state) {
+    current_identifier.solod = state;
+    
     if (self.toggle.state == 0) {
       
       // var enabled_solo_buttons = $('.button.on.solo')
@@ -26,14 +28,20 @@ function Solo(socket, current_identifier) {
       //   this.click();
       // });
     }
-    self.toggle.change_state();
+    self.toggle.change_state(state);
   }
   
   this.toggle.button.click( function() {
+    if (current_identifier.solod == 0) {
+	    current_identifier.solod = 1;
+	  }
+	  else if (current_identifier.solod == 1) {
+	    current_identifier.solod = 0;
+	  }
     socket.emit('solochannelinstrument', current_identifier);
   });
   
   socket.on('sendsolochannelinstrument', function(identifier) {
-    if (current_identifier.id == identifier.id) { handleToggle(); }
+    if (current_identifier.id == identifier.id) { handleToggle(identifier.solod); }
   });
 }
