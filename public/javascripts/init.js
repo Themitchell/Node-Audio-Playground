@@ -15,7 +15,6 @@ function init() {
   });
   
   connection.socket.on('createInstrument', function(username, identifier) {
-    debugger;
     var instrument = new Instrument(connection.socket, identifier);
   });
 }

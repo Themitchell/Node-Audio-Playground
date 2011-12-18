@@ -13,8 +13,8 @@ function TriggerPad(socket, sound_bank, current_identifier) {
   
   socket.on('sendtriggerinstrument', function(identifier) {
     if (current_identifier.id == identifier.id) {
-      self.element.animate({ backgroundColor: "#AC000E"}, 6);
-      self.element.animate({ backgroundColor: "#000"}, 6);
+      self.element.animate({ backgroundColor: "black"}, 6);
+      self.element.animate({ backgroundColor: "white"}, 6);
     }
   });
 }

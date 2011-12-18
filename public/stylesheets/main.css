@@ -8,7 +8,7 @@ body {
   background-color: black;
   font-family: helvetica neue, arial, sans;
   font-size: 16px;
-  color: white;
+  color: black;
 }
 
 h1{ margin: 0 0 10px 0;}
@@ -16,23 +16,13 @@ h2{ margin: 0 0 10px 0;}
 h3{ margin: 0 0 10px 0; height: 20px;}
 
 #container { 
-  width: 98%;
+  width: 99%;
   margin-left: auto;
   margin-right: auto;
 }
 
 ul {
-  overflow-y: auto;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px 0 20px 0;
-}
-
-li {
-  cursor: pointer;
-  display: block;
-  float: left;
-  margin-right: 10px;
+  list-style-type: none;
 }
 
 /* NAME & MENU */
@@ -41,10 +31,35 @@ li {
   height: 50px;
 }
 #user h2 {
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   height: 30px;
   line-height: 30px;
   padding: 10px 1%;
-  background-color: #AC000E;
+  background-color: #FFF;
+  color: black;
+}
+
+#options {
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #FFF;
+  overflow-y: auto;
+  margin: 10px auto 10px auto;
+  padding: 5px 1% 5px 1%;
+}
+#options li {
+  color: black;
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 0 10px;
+  border-left: 2px solid black;
+}
+
+#options li:first-child {
+  border: none;
+  padding-left: 0;
 }
 
 /* GENERIC */
@@ -53,40 +68,46 @@ li {
 #mixer,
 #trigger_bank,
 .dual_column {
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background-color: white;
   margin-left: auto;
   margin-right: auto;
   overflow-x: scroll;
   padding: 5px;
-  border: 1px solid #AC000E;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 
 /* BUTTONS & TOGGLES */
 
 .button.int_label {
-  height: 13px;
-  width: 13px;
-  border: 1px solid #AC000E;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  height: 10px;
+  width: 10px;
+  border: 2px solid black;
   bottom: 10px;
+  line-height: 8px;
   font-size: 9px;
+  font-weight: bold;
   text-align: center;
   float: left;
   display:block;
-  margin-right: 4px;
+  margin-right: 10px;
 }
 .toggle_wrapper {
   float: left;
   width: 12px;
   height: 12px;
-  border: 1px solid #AC000E;
+  border: 2px solid black;
   padding: 3px;
   margin-right: 10px;
 }
 
 .toggle_wrapper .button {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
 }
 
 .toggle_wrapper .button.off {
@@ -118,7 +139,7 @@ li {
 
 #transport .visual_aid_wrapper {
   clear: both;
-  border: 1px solid #AC000E;
+  border: 1px solid black;
   padding: 2px;
   float: left;
   width: 7px;
@@ -149,9 +170,11 @@ li {
 }
 
 #mixer .channel_strip {
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   height: 313px;
   padding: 10px;
-  border: 1px solid #AC000E;
+  border: 2px solid black;
   width: 50px;
   float: left;
   margin-right: 5px;
@@ -175,19 +198,16 @@ li {
 #mixer .channel_strip .controls .fader,
 #mixer .channel_strip .controls .meter {
   height: 256px;
-  width: 6px;
   float: left;
   margin-right: 10px;
   margin-bottom: 10px;
 }
 
 #mixer .channel_strip .controls .meter {
-  border: 1px solid #999;
-}
-
-#mixer .channel_strip .controls .fader .ui-slider-handle {
-  width: 15px;
-  height: 10px;
+  border: 2px solid black;
+  width: 10px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
 
 
@@ -199,7 +219,9 @@ li {
 }
 
 #trigger_bank .trigger {
-  border: 1px solid #AC000E;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 2px solid black;
   width: 50px;
   height: 50px;
   padding: 10px;
@@ -222,7 +244,9 @@ li {
 }
   /* CONNECTED USERS */
   #connected_users {
-    border: 1px solid #AC000E;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 2px solid black;
     padding: 15px 1%;
     width: 15%;
     float: left;
@@ -237,15 +261,17 @@ li {
 
   /* CHAT */
   #chat {
-    padding: 15px 1%;
+    padding: 15px 1% 0;
     height: 325px;
-    border: 1px solid #AC000E;
     float: left;
     width: 79%;
   }
   
   #chat #stream {
-    height: 250px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 2px solid black;
+    height: 260px;
     padding: 0px;
     overflow-y: scroll;
   }
@@ -274,4 +300,21 @@ li {
   margin: 0 4px 4px 0;
   background-color: white;
   display: inline-block;
+}
+
+/* SLIDERS */
+.ui-slider-vertical {
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  border: 2px solid black;
+  width: 10px;
+}
+.ui-slider-vertical .ui-state-default {
+  background: transparent url(/images/fader_arrow.png) no-repeat scroll 50% 50%;
+  border: none;
+  left: 0;
+  width: 10px;
+  height: 11px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
