@@ -32,7 +32,7 @@ io.sockets.on('connection', function(socket) {
     for (var i=0; i<instruments.all_entries.length; i++) {
       var identifier = instruments.all_entries[i];
       console.log("New Instrument: " + identifier.id + " created from existing instruments in pool");
-      console.log(identifier.muted);
+      console.log(identifier.volume_fader_value);
       socket.emit('createInstrument', socket.username, identifier); 
     }
     socket.broadcast.emit('updateChatMessage', 'SERVER', username + ' has connected');
@@ -76,8 +76,9 @@ io.sockets.on('connection', function(socket) {
 		io.sockets.emit('sendsolochannelinstrument', instrument_identifier);
 	});
 	
-	socket.on('volumechannelinstrument', function(instrument_identifier, fader_value) {
+	socket.on('volumechannelinstrument', function(instrument_identifier) {
 	  console.log("Changing volume of Instrument: " + instrument_identifier.id);
-		io.sockets.emit('sendvolumechannelinstrument', instrument_identifier, fader_value);
+	  instruments.update_identifier(instrument_identifier);
+		io.sockets.emit('sendvolumechannelinstrument', instrument_identifier);
 	});
 });
