@@ -13,10 +13,10 @@ function Mute(socket, sound_source, volume, current_identifier) {
     //     */
     current_identifier.muted = state;
     if (current_identifier.muted == 0) {
-      sound_source.audio[0].volume = 0;
+      sound_source.audio.volume = volume;
     }
     else if (current_identifier.muted == 1) {
-      sound_source.audio[0].volume = volume;
+      sound_source.audio.volume = 0;
     }
     self.toggle.change_state(state);
   }
