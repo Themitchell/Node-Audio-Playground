@@ -7,8 +7,8 @@ function Channel(socket, sound_source, current_identifier) {
   this.element      = $("<div class='channel_strip' id='" + current_identifier.type + "'><h3>" + current_identifier.type + "</h3></div>");
 
   this.volume       = new Volume(socket, sound_source, current_identifier);
-  this.meter        = $("<canvas class='meter'></canvas>");
-  this.controls     = $("<div class='controls'></div>").append(this.volume.fader, this.meter);
+  this.meter        = new Meter(sound_source, current_identifier);
+  this.controls     = $("<div class='controls'></div>").append(this.volume.fader, this.meter.wrapper);
   
   this.mute         = new Mute(socket, sound_source, this.volume.value, current_identifier);
   this.solo         = new Solo(socket, current_identifier);

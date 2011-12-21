@@ -2,22 +2,33 @@ function SoundSource(socket, sound_bank, current_identifier) {
     var self = this;
     
     var sound_bank    = document.getElementById("sound_bank");
-    var osc_samples = new Float32Array(22050);
     
     this.trigger_pad  = new TriggerPad(socket, sound_bank, current_identifier);
     this.audio        = new Audio();
+    this.channels;
+    this.rate;
+    this.frame_buffer_length;
     
     if (current_identifier.type == 'osc') {
+      this.sound_samples = new Float32Array(22050);
       this.audio.mozSetup(2, 44100);
-
-      for (var i = 0; i < osc_samples.length ; i++) {  
-        osc_samples[i] = Math.sin( i / 80 );  
+      
+      for (var i = 0; i < self.sound_samples.length ; i++) {
+        self.sound_samples[i] = Math.sin( i / 80 );  
       }
-    } else {
+    }
+    else {
       this.audio.src = 'samples/' + current_identifier.type + '.ogg';
       this.audio.setAttribute('class', 'file');
     }
     $(sound_bank).append($(this.audio));
+    
+    function handleLoadedMetadata() {
+      self.channels            = self.audio.mozChannels;
+      self.rate                = self.audio.mozSampleRate;
+      self.frame_buffer_length = self.sound_samples != undefined ? self.sound_samples : self.audio.mozFrameBufferLength;
+    }
+    this.audio.addEventListener('loadedmetadata', handleLoadedMetadata, false);
 
     function play() {
         /*  TODO: This is carp. Surely I can load the buffer prior to playing the sample then
@@ -26,7 +37,7 @@ function SoundSource(socket, sound_bank, current_identifier) {
             and load that in place of a sample Float32Array
         */
         if (current_identifier.type == 'osc') {
-            self.audio.mozWriteAudio(osc_samples);
+            self.audio.mozWriteAudio(this.sound_samples);
         } else {
             self.audio.currentTime = 0;
             self.audio.play();
