@@ -48,7 +48,6 @@ function Meter(sound_source, current_identifier) {
     grd.addColorStop(1,"#00FF00");
     
     for (var i = 0; i < signal.length; i++) {
-      debugger;
       var percentage = amplitudeAsPercentage(signal[i]);
       var new_height = ( ( self.canvas[0].height/100 ) * percentage ) * sound_source.audio.volume;
       context.fillStyle = grd;
