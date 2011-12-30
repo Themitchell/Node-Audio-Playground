@@ -175,7 +175,6 @@ ul {
   height: 313px;
   padding: 10px;
   border: 2px solid black;
-  width: 50px;
   float: left;
   margin-right: 5px;
   position: relative;
@@ -186,21 +185,29 @@ ul {
 }
 
 #mixer .channel_strip .controls {
-  width: 50px;
-  height: 268px;
+  height: 260px;
+  margin-bottom: 10px;
 }
 
 #mixer .channel_strip .buttons {
-  width: 50px;
-  height: 15px;
 }
 
 #mixer .channel_strip .controls .fader,
-#mixer .channel_strip .controls .meter {
+#mixer .channel_strip .controls .meter,
+#mixer .channel_strip .controls .inserts {
   height: 256px;
   float: left;
   margin-right: 10px;
   margin-bottom: 10px;
+}
+
+#mixer .channel_strip .controls .inserts {
+}
+
+#mixer .channel_strip .controls .inserts .button.int_label {
+  width: 14px;
+  height: 14px;
+  line-height: 12px;
 }
 
 #mixer .channel_strip .controls .meter {
@@ -235,7 +242,7 @@ ul {
   border: 1px solid black;
   position: fixed;
   z-index: 100;
-  padding: 10px 20px;
+  padding: 15px 20px;
 }
 
 #mixer .channel_strip .floating_window.open {
@@ -249,6 +256,14 @@ ul {
 #mixer .channel_strip .floating_window span.close {
   float: right;
   font-weight: bold;
+  margin-bottom: 30px;
+}
+
+#mixer .channel_strip .eq_window .fader_bank {
+  border: 1px solid black;
+  float: right;
+  height: 300px;
+  width: 600px;
 }
 
 

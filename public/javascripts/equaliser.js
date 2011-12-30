@@ -4,7 +4,10 @@ function Equaliser(socket, sound_source, current_identifier) {
   this.toggle_window  = new Toggle(0, 'internal', 'EQ', 'toggle_eq_window');
   this.element        = $("<div class=\"floating_window eq_window closed\"></div>");
   this.close_button   = $("<span class=\"close\">x</span>")
-  this.element.append(this.close_button);
+  this.fader_bank     = $("<div class=\"fader_bank\"></div>")
+  this.element.append(this.close_button, this.fader_bank);
+  
+
   
   this.toggle_window.button.click( function() {
     if ($(this).hasClass('off')) {
