@@ -27,7 +27,7 @@ function Meter(sound_source, current_identifier) {
     else {
       if (sound_source.channels == 2) {
         for (var i = 0, fbl = sound_source.frame_buffer_length / 2; i < fbl; i++ ) {
-          signal[i] = (fb[2*i] + fb[2*i+1]) / 2;
+          sound_source.output.buffer[i] = (fb[2*i] + fb[2*i+1]) / 2;
         }
       }
       else {
