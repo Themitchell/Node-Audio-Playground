@@ -266,6 +266,10 @@ ul {
   width: 600px;
 }
 
+#mixer .channel_strip .eq_window .fader_bank li {
+  display: inline-block;
+}
+
 
 
 /* TRIGGERS */
