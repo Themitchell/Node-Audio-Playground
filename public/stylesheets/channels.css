@@ -37,12 +37,14 @@
 }
 
 #mixer .channel_strip .controls .inserts {
+  margin-right: 0px;
 }
 
 #mixer .channel_strip .controls .inserts .button.int_label {
   width: 14px;
   height: 14px;
   line-height: 12px;
+  margin: 0 0 5px 0;
 }
 
 #mixer .channel_strip .controls .meter {
