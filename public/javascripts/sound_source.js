@@ -27,6 +27,7 @@ function SoundSource(socket, sound_bank, current_identifier) {
       self.channels            = self.audio.mozChannels;
       self.rate                = self.audio.mozSampleRate;
       self.frame_buffer_length = self.sound_samples != undefined ? self.sound_samples : self.audio.mozFrameBufferLength;
+      self.output              = new Output(self);
     }
     this.audio.addEventListener('loadedmetadata', handleLoadedMetadata, false);
 
@@ -37,10 +38,11 @@ function SoundSource(socket, sound_bank, current_identifier) {
             and load that in place of a sample Float32Array
         */
         if (current_identifier.type == 'osc') {
-            self.audio.mozWriteAudio(this.sound_samples);
+          self.audio.mozWriteAudio(this.sound_samples);
         } else {
-            self.audio.currentTime = 0;
-            self.audio.play();
+          self.audio.volume = 0
+          self.audio.currentTime = 0;
+          self.audio.play();
         }
     }
     this.play = play;
