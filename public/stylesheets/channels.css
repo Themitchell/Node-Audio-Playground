@@ -1,0 +1,60 @@
+/* MIXER */
+
+#mixer {
+  height: 350px;
+}
+
+#mixer .channel_strip {
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  height: 313px;
+  padding: 10px;
+  border: 2px solid black;
+  float: left;
+  margin-right: 5px;
+  position: relative;
+}
+
+#mixer .channel_strip h3 {
+  text-align: center;
+}
+
+#mixer .channel_strip .controls {
+  height: 260px;
+  margin-bottom: 10px;
+}
+
+#mixer .channel_strip .buttons {
+}
+
+#mixer .channel_strip .controls .fader,
+#mixer .channel_strip .controls .meter,
+#mixer .channel_strip .controls .inserts {
+  height: 256px;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+#mixer .channel_strip .controls .inserts {
+}
+
+#mixer .channel_strip .controls .inserts .button.int_label {
+  width: 14px;
+  height: 14px;
+  line-height: 12px;
+}
+
+#mixer .channel_strip .controls .meter {
+  border: 2px solid black;
+  width: 10px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+#mixer .channel_strip .controls .meter canvas {
+  position: absolute;
+  bottom: 0;
+}

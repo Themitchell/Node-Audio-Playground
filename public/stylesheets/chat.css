@@ -1,0 +1,48 @@
+/* CONNECTED USERS */
+#connected_users {
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 2px solid black;
+  padding: 15px 1%;
+  width: 15%;
+  float: left;
+  height: 325px;
+  margin-right: 1%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+#connected_users ul li {
+  float: none;
+}
+
+/* CHAT */
+#chat {
+  padding: 15px 1% 0;
+  height: 325px;
+  float: left;
+  width: 79%;
+}
+
+#chat #stream {
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 2px solid black;
+  height: 260px;
+  padding: 0px;
+  overflow-y: scroll;
+}
+
+#chat #stream li {
+  float: none;
+  margin-bottom: 10px;
+}
+
+#chat #message {
+  width: 90%;
+  margin-right: 1%;
+  margin-bottom: 18px;
+}
+
+#chat #send_button {
+  width: 8%;
+}

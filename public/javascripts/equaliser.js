@@ -53,16 +53,6 @@ function Equaliser(socket, sound_source, current_identifier) {
     killOverlay();
   });
   
-  
-  
-  
-  
-  
-  
-  
-  
-  /****************************************************/
-  
   var freqz       = [0];
   var writeCount  = 0;
   
@@ -75,8 +65,15 @@ function Equaliser(socket, sound_source, current_identifier) {
   this.fader_bank.empty();
   for (var i=0; i<grapheq.filters.length; i++) {
     
-    var band_fader   = $("<div id=\"band_"+i+"\" class=\"slider\"></div>");
-    var band_wrapper = $("<li><span class=\"band_frequency\">" + grapheq.filters[i].f0.toFixed(2) + " Hz</span></li>");
+    var band_label_text;
+    if (grapheq.filters[i].f0 > 1000) { 
+      band_label_text = (grapheq.filters[i].f0/1000).toFixed(2) + "k";
+    }
+    else if (grapheq.filters[i].f0 < 1000) { 
+      band_label_text = grapheq.filters[i].f0.toFixed(2);
+    }
+    var band_fader      = $("<div id=\"band_"+i+"\" class=\"slider\"></div>");
+    var band_wrapper    = $("<li><span class=\"band_frequency\">" + band_label_text + "Hz</span></li>");
     band_wrapper.prepend(band_fader);
     self.fader_bank.append(band_wrapper);
     

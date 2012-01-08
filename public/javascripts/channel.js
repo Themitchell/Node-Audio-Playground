@@ -17,6 +17,8 @@ function Channel(socket, sound_source, current_identifier) {
   this.element.append(this.controls, this.buttons);
   $(mixer).append(this.element);
   
+  
+  /* This forces the insert components to wait until the audio source and the audio output is ready before creating insert elements */
   function handleLoadedMetadata() {
     self.equaliser    = new Equaliser(socket, sound_source, current_identifier);
     self.inserts      = $("<div class=\"inserts\"></div>").append(self.equaliser.toggle_window.button, self.equaliser.element);

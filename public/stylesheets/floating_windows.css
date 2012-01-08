@@ -1,0 +1,34 @@
+/* Floating Windows */
+
+.overlay {
+	position:absolute;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	background:#000;
+	opacity:0;
+	filter:alpha(opacity=0);
+	z-index:50;
+}
+#mixer .channel_strip .floating_window {
+  background-color: white;
+  border: 1px solid black;
+  position: fixed;
+  z-index: 100;
+  padding: 15px 20px;
+}
+
+#mixer .channel_strip .floating_window.open {
+}
+
+#mixer .channel_strip .floating_window.closed {
+  left: -9999px;
+  top: 0;
+}
+
+#mixer .channel_strip .floating_window span.close {
+  float: right;
+  font-weight: bold;
+  margin-bottom: 30px;
+}

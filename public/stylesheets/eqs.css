@@ -1,0 +1,25 @@
+/* EQUALISERS */
+#mixer .channel_strip .eq_window .fader_bank {
+  border: 1px solid black;
+  float: right;
+  height: 300px;
+  width: 600px;
+}
+
+#mixer .channel_strip .eq_window .fader_bank li {
+  margin-top: 20px;
+  display: inline-block;
+  width: 50px;
+  height: 254px;
+}
+
+#mixer .channel_strip .eq_window .fader_bank li span {
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+  font-size: 10px;
+}
+
+#mixer .channel_strip .eq_window .fader_bank li .slider {
+  margin-left: 20px;
+}
