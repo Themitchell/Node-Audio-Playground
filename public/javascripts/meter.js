@@ -10,37 +10,25 @@ function Meter(sound_source, current_identifier) {
   
   
   function audioAvailable(event) {
-
     var fb        = event.frameBuffer;
     var signal    = new Float32Array(fb.length / sound_source.channels);
     
-    if (current_identifier.type == 'osc') {
-      for (var i = 0, fbl = sound_source.sound_samples.channels / 2; i < fbl; i++ ) {
-        if (signal[i] < 0) {
-          signal[i] = -sound_source.sound_samples[i];
-        }
-        else {
-          signal[i] = sound_source.sound_samples[i];
-        }
+    if (sound_source.channels == 2) {
+      for (var i = 0, fbl = sound_source.frame_buffer_length / 2; i < fbl; i++ ) {
+        sound_source.output.buffer[i] = (fb[2*i] + fb[2*i+1]) / 2;
       }
     }
     else {
-      if (sound_source.channels == 2) {
-        for (var i = 0, fbl = sound_source.frame_buffer_length / 2; i < fbl; i++ ) {
-          sound_source.output.buffer[i] = (fb[2*i] + fb[2*i+1]) / 2;
+      for (var i = 0, fbl = sound_source.frame_buffer_length; i < fbl; i++ ) {
+        if (sound_source.output.buffer[i] < 0) {
+          sound_source.output.buffer[i] = -fb[i];
         }
-      }
-      else {
-        for (var i = 0, fbl = sound_source.frame_buffer_length; i < fbl; i++ ) {
-          if (sound_source.output.buffer[i] < 0) {
-            sound_source.output.buffer[i] = -fb[i];
-          }
-          else {
-            sound_source.output.buffer[i] = fb[i];
-          }
+        else {
+          sound_source.output.buffer[i] = fb[i];
         }
       }
     }
+
     
     context.clearRect(0,0, self.canvas[0].width, self.canvas[0].height);
     var grd = context.createLinearGradient(0, 0, self.canvas[0].width, self.canvas[0].height);

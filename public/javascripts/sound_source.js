@@ -26,7 +26,7 @@ function SoundSource(socket, sound_bank, current_identifier) {
     function handleLoadedMetadata() {
       self.channels            = self.audio.mozChannels;
       self.rate                = self.audio.mozSampleRate;
-      self.frame_buffer_length = self.sound_samples != undefined ? self.sound_samples : self.audio.mozFrameBufferLength;
+      self.frame_buffer_length = self.sound_samples != undefined ? self.sound_samples.length : self.audio.mozFrameBufferLength;
       self.output              = new Output(self);
     }
     this.audio.addEventListener('loadedmetadata', handleLoadedMetadata, false);
