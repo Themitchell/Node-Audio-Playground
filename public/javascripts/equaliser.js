@@ -50,8 +50,4 @@ function Equaliser(socket, sound_source, current_identifier) {
   
     killOverlay();
   });
-
-  // 
-  // var lowpass = IIRFilter(LOWPASS, 200, sound_source.rate);
-  // filter.process(sound_source.samples);
 }
