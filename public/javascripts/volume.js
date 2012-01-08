@@ -6,7 +6,7 @@ function Volume(socket, sound_source, current_identifier) {
   
   
   function handleFader(volume_fader_value) {
-    sound_source.audio.volume = valueToVolume(volume_fader_value);
+    sound_source.output.audio.volume = valueToVolume(volume_fader_value);
     self.fader.slider({ value: volume_fader_value });
   }
   

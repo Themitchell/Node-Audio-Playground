@@ -32,11 +32,11 @@ function Meter(sound_source, current_identifier) {
       }
       else {
         for (var i = 0, fbl = sound_source.frame_buffer_length; i < fbl; i++ ) {
-          if (signal[i] < 0) {
-            signal[i] = -fb[i];
+          if (sound_source.output.buffer[i] < 0) {
+            sound_source.output.buffer[i] = -fb[i];
           }
           else {
-            signal[i] = fb[i];
+            sound_source.output.buffer[i] = fb[i];
           }
         }
       }
@@ -47,9 +47,9 @@ function Meter(sound_source, current_identifier) {
     grd.addColorStop(0,"#FF0000");
     grd.addColorStop(1,"#00FF00");
     
-    for (var i = 0; i < signal.length; i++) {
-      var percentage = amplitudeAsPercentage(signal[i]);
-      var new_height = ( ( self.canvas[0].height/100 ) * percentage ) * sound_source.audio.volume;
+    for (var i = 0; i < sound_source.output.buffer.length; i++) {
+      var percentage = amplitudeAsPercentage(sound_source.output.buffer[i]);
+      var new_height = ( ( self.canvas[0].height/100 ) * percentage ) * sound_source.output.audio.volume;
       context.fillStyle = grd;
       context.fillRect(0, self.canvas[0].height, self.canvas[0].width, -new_height);
     }
