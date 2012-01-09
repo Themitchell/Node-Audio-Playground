@@ -13,6 +13,6 @@ function Instrument(socket, identifier) {
     var printer         = document.getElementById("printer");
     
     this.identifier     = identifier;
-    this.sound_source   = new SoundSource(socket, sound_bank, this.identifier);
-    this.channel        = new Channel(socket, this.sound_source, this.identifier);
+    this.sound_source   = new SoundSource(socket, self, sound_bank, this.identifier);
+    this.channel        = new Channel(socket, self, this.sound_source, this.identifier);
 }
