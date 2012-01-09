@@ -1,7 +1,6 @@
-function Equaliser(socket, sound_source, current_identifier) {
+function Equaliser(socket, sound_source, sample_rate, current_identifier) {
   var self = this;
   
-  this.output;
   this.sound_source   = sound_source;
   this.toggle_window  = new Toggle(0, 'internal', 'EQ', 'toggle_eq_window');
   this.element        = $("<div class=\"floating_window eq_window closed\"></div>");
@@ -55,21 +54,21 @@ function Equaliser(socket, sound_source, current_identifier) {
   
   var freqz       = [0];
   
-  this.grapheq     = new GraphicalEq(sound_source.rate);
-  this.grapheq.setMinimumFrequency(30);
-  this.grapheq.setMaximumFrequency(30000);
-  this.grapheq.setBandsPerOctave(1.2);
-  this.grapheq.recalculateFilters();
+  var grapheq     = new GraphicalEq(sample_rate);
+  grapheq.setMinimumFrequency(30);
+  grapheq.setMaximumFrequency(30000);
+  grapheq.setBandsPerOctave(1.2);
+  grapheq.recalculateFilters();
   
   this.fader_bank.empty();
-  for (var i=0; i<self.grapheq.filters.length; i++) {
+  for (var i=0; i<grapheq.filters.length; i++) {
     
     var band_label_text;
-    if (self.grapheq.filters[i].f0 > 1000) { 
-      band_label_text = (self.grapheq.filters[i].f0/1000).toFixed(2) + "k";
+    if (grapheq.filters[i].f0 > 1000) { 
+      band_label_text = (grapheq.filters[i].f0/1000).toFixed(2) + "k";
     }
-    else if (self.grapheq.filters[i].f0 < 1000) { 
-      band_label_text = self.grapheq.filters[i].f0.toFixed(2);
+    else if (grapheq.filters[i].f0 < 1000) { 
+      band_label_text = grapheq.filters[i].f0.toFixed(2);
     }
     var band_fader      = $("<div id=\"band_"+i+"\" class=\"slider\"></div>");
     var band_wrapper    = $("<li><span class=\"band_frequency\">" + band_label_text + "Hz</span></li>");
@@ -88,24 +87,23 @@ function Equaliser(socket, sound_source, current_identifier) {
     });
   }
 
-  sound_source.audio.addEventListener('MozAudioAvailable', function(event) {
-    signal = event.frameBuffer;
-    self.output = self.grapheq.processStereo(signal);
-    sound_source.output.audio.mozWriteAudio([]); // flush
-    sound_source.output.audio.mozWriteAudio(self.output);
-  }, false);
+  function process(input) {
+    var output = grapheq.process(input);
+    return output;
+  }
+  this.process = process;
   
   function changeBandGain(event, ui) {
-    self.grapheq.setBandGain(ui.handle.parentNode.id.split("_")[1], ui.value);
+    grapheq.setBandGain(ui.handle.parentNode.id.split("_")[1], ui.value);
     plotCoeffs();
   }
   
   function plotCoeffs() {
-    freqz = new Float32Array(self.grapheq.freqzs[0].length);
+    freqz = new Float32Array(grapheq.freqzs[0].length);
 
     for (var i=0; i<freqz.length; i++) {
-      for (var j=0; j<self.grapheq.freqzs.length; j++) {
-        freqz[i] += self.grapheq.freqzs[j][i];
+      for (var j=0; j<grapheq.freqzs.length; j++) {
+        freqz[i] += grapheq.freqzs[j][i];
       }
     }
   }

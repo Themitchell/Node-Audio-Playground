@@ -10,9 +10,33 @@ var midiNoteFreq =  /* 0 */ [ 16.35,    17.32,    18.35,    19.45,    20.6,     
 
 
 function Instrument(socket, identifier) {
-    var printer         = document.getElementById("printer");
+  
+  var self            = this;
+  this.identifier     = identifier;
+  this.sound_source   = new SoundSource(socket, self, sound_bank, this.identifier);
+  this.output         = new Audio();
+  this.channel;
+  this.output;
+  this.channels;
+  this.rate;
+  this.frame_buffer_length;
+  
+  this.sound_source.audio.addEventListener('loadedmetadata', function() {
+    self.channels            = self.sound_source.audio.mozChannels;
+    self.rate                = self.sound_source.audio.mozSampleRate;
+    self.frame_buffer_length = self.sound_source.audio.sound_samples != undefined ? self.sound_source.sound_samples.length : self.sound_source.audio.mozFrameBufferLength;
     
-    this.identifier     = identifier;
-    this.sound_source   = new SoundSource(socket, self, sound_bank, this.identifier);
-    this.channel        = new Channel(socket, self, this.sound_source, this.identifier);
+    self.channel            = new Channel(socket, self.rate, self.sound_source, self.identifier);
+    self.output.mozSetup(self.channels, self.rate);
+  }, false);
+  
+  
+  this.sound_source.audio.addEventListener('MozAudioAvailable', function(event) {
+    var signal = event.frameBuffer;
+    
+    signal = self.channel.process(signal);
+    
+    self.output.mozWriteAudio([]);
+    self.output.mozWriteAudio(signal);
+  }, false);
 }

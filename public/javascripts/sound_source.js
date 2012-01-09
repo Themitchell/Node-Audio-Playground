@@ -6,9 +6,6 @@ function SoundSource(socket, instrument, sound_bank, current_identifier) {
   this.trigger_pad  = new TriggerPad(socket, sound_bank, current_identifier);
   this.audio        = new Audio();
   this.audio.volume = 0
-  this.channels;
-  this.rate;
-  this.frame_buffer_length;
   
   if (current_identifier.type == 'osc') {
     this.sound_samples = new Float32Array(22050);
@@ -37,17 +34,6 @@ function SoundSource(socket, instrument, sound_bank, current_identifier) {
       }
   }
   this.play = play;
-  
-  this.audio.addEventListener('loadedmetadata', function() {
-    self.channels            = self.audio.mozChannels;
-    self.rate                = self.audio.mozSampleRate;
-    self.frame_buffer_length = self.sound_samples != undefined ? self.sound_samples.length : self.audio.mozFrameBufferLength;
-    self.output              = new Output(self.channels, self.rate, self.frame_buffer_length);
-  }, false);
-  
-  this.audio.addEventListener('MozAudioAvailable', function(event) {
-    self.output.prepare(event.frameBuffer);
-  }, false);
   
   socket.on('sendtriggerinstrument', function(identifier) {
     if (current_identifier.id == identifier.id) {
