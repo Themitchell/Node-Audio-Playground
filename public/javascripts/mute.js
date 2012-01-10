@@ -1,4 +1,4 @@
-function Mute(socket, sound_source, volume, current_identifier) {
+function Mute(socket, output, volume, current_identifier) {
   var self = this;
   this.toggle = new Toggle(current_identifier.muted, 'internal', 'M', 'mute');
   
@@ -13,10 +13,10 @@ function Mute(socket, sound_source, volume, current_identifier) {
     //     */
     current_identifier.muted = state;
     if (current_identifier.muted == 0) {
-      sound_source.output.audio.volume = volume;
+      output.volume = volume;
     }
     else if (current_identifier.muted == 1) {
-      sound_source.output.audio.volume = 0;
+      output.volume = 0;
     }
     self.toggle.change_state(state);
   }

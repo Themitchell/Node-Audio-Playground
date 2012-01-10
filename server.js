@@ -55,8 +55,8 @@ io.sockets.on('connection', function(socket) {
 
   // AUDIO EVENTS
 	socket.on('sendCreateInstrument', function(instrument_type) {
-	  console.log("Creating Instrument: " + instrument_identifier.id);
 	  var instrument_identifier = instruments.create_identifier(instrument_type);
+	  console.log("Creating Instrument: " + instrument_identifier.id);
     io.sockets.emit('createInstrument', socket.username, instrument_identifier);
 	});
 	

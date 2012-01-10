@@ -14,9 +14,7 @@ function Instrument(socket, identifier) {
   var self            = this;
   this.identifier     = identifier;
   this.sound_source   = new SoundSource(socket, self, sound_bank, this.identifier);
-  this.output         = new Audio();
   this.channel;
-  this.output;
   this.channels;
   this.rate;
   this.frame_buffer_length;
@@ -25,18 +23,11 @@ function Instrument(socket, identifier) {
     self.channels            = self.sound_source.audio.mozChannels;
     self.rate                = self.sound_source.audio.mozSampleRate;
     self.frame_buffer_length = self.sound_source.audio.sound_samples != undefined ? self.sound_source.sound_samples.length : self.sound_source.audio.mozFrameBufferLength;
-    
-    self.channel            = new Channel(socket, self.rate, self.sound_source, self.identifier);
-    self.output.mozSetup(self.channels, self.rate);
+
+    self.channel            = new Channel(socket, self, self.sound_source, self.identifier);
   }, false);
   
-  
   this.sound_source.audio.addEventListener('MozAudioAvailable', function(event) {
-    var signal = event.frameBuffer;
-    
-    signal = self.channel.process(signal);
-    
-    self.output.mozWriteAudio([]);
-    self.output.mozWriteAudio(signal);
+    self.channel.process(event.frameBuffer);
   }, false);
 }
