@@ -7,7 +7,7 @@ function Meter(sound_source, channels, sample_rate, output, current_identifier) 
   /* Build Array of canvases and contexts for each channel of audio */
   this.canvases          = new Array(channels);
   this.contexts          = new Array(channels);
-  
+    
   /* Build Array of canvases and contexts for each channel of audio */
   for (var i=0; i<self.canvases.length; i++) {
     var canvas           = $("<canvas></canvas>");
@@ -24,26 +24,26 @@ function Meter(sound_source, channels, sample_rate, output, current_identifier) 
   
   var write_count = 0;
   function doYourThing(input) {
-    var signals = new Array(channels);
-    var grds    = new Array(channels);
     
-    /* Fore each channel of audio */
-    for (var i=0; i<self.canvases.length; i++) {
-      /* create the signal */
-      var signal    = new Float32Array(input.length/self.canvases.length);
+    var signals = new Array(channels);
+    for (var i=0; i<signals.length; i++) {
       
-      /* and then for each frame of audio in the channel */
+      var signal = new Float32Array(input.length/self.canvases.length);
       for (var j=0, fbl = input.length/signals.length; j<fbl; j++ ) {
         
-        /* convert the signal to positive values and add it to the channel signal array */
         if (input[(i+1)*j] < 0) {
-          signal[j] = -input[(i+1)*j];
+          signal[j] = ( ( self.canvases[i].height/100 ) * amplitudeAsPercentage(-input[(i+1)*j]) ) * output.volume;
         }
         else {
-          signal[j] = input[(i+1)*j];
+          signal[j] = ( ( self.canvases[i].height/100 ) * amplitudeAsPercentage(input[(i+1)*j]) ) * output.volume;
         }
       }
       signals[i] = signal;
+    }
+    
+    
+    var grds = new Array(self.canvases.length);
+    for (var i=0; i<self.canvases.length; i++) {      
       
       self.contexts[i].clearRect(0,0, self.canvases[i].width, self.canvases[i].height);
       var grd = self.contexts[i].createLinearGradient(0, 0, self.canvases[i].width, self.canvases[i].height);
@@ -51,15 +51,23 @@ function Meter(sound_source, channels, sample_rate, output, current_identifier) 
       grds[i] = grd;
     }
     
+    
+    var write_count_this_buffer = 0;
+    
+    var animation_frame_multiplier              = Math.round(sample_rate/50); /* 50 fps */
+    var remaining_frames_before_playing_buffer  = animation_frame_multiplier - write_count;    
+    
+
+    
     for (var i=0; i<signals.length; i++) {
       for (var j = 0; j<signals[i].length; j++) {
         write_count++;
+        write_count_this_buffer++;
+        
         if (write_count == 1) {
-          var percentage = amplitudeAsPercentage(signals[i][j]);
-          var new_height = ( ( self.canvases[i].height/100 ) * percentage ) * output.volume;
           self.contexts[i].fillStyle = grds[i];
-          self.contexts[i].fillRect(0, self.canvases[i].height, self.canvases[i].width, -new_height);
-        } else if (write_count == Math.round(sample_rate/50)) {
+          self.contexts[i].fillRect(0, self.canvases[i].height, self.canvases[i].width, -signals[i][j] );
+        } else if (write_count == animation_frame_multiplier) {
           write_count = 0;
         }
       }
