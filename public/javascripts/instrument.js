@@ -20,9 +20,9 @@ function Instrument(socket, identifier) {
   this.frame_buffer_length;
   
   this.sound_source.audio.addEventListener('loadedmetadata', function() {
-    self.channels            = self.sound_source.audio.mozChannels;
-    self.rate                = self.sound_source.audio.mozSampleRate;
-    self.frame_buffer_length = self.sound_source.audio.sound_samples != undefined ? self.sound_source.sound_samples.length : self.sound_source.audio.mozFrameBufferLength;
+    self.channels            = this.mozChannels;
+    self.rate                = this.mozSampleRate;
+    // self.frame_buffer_length = this.mozFrameBufferLength;
 
     self.channel            = new Channel(socket, self, self.sound_source, self.identifier);
   }, false);

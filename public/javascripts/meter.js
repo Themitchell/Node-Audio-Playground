@@ -22,6 +22,10 @@ function Meter(sound_source, channels, sample_rate, output, current_identifier) 
     }
   }
   
+  function convertVolumeToHeight(input, canvas) {
+    return ( ( canvas.height/100 ) * amplitudeAsPercentage(input) ) * output.volume;
+  }
+  
   var write_count = 0;
   function doYourThing(input) {
     
@@ -32,10 +36,10 @@ function Meter(sound_source, channels, sample_rate, output, current_identifier) 
       for (var j=0, fbl = input.length/signals.length; j<fbl; j++ ) {
         
         if (input[(i+1)*j] < 0) {
-          signal[j] = ( ( self.canvases[i].height/100 ) * amplitudeAsPercentage(-input[(i+1)*j]) ) * output.volume;
+          signal[j] = convertVolumeToHeight(-input[(i+1)*j], self.canvases[i]);
         }
         else {
-          signal[j] = ( ( self.canvases[i].height/100 ) * amplitudeAsPercentage(input[(i+1)*j]) ) * output.volume;
+          signal[j] = convertVolumeToHeight(input[(i+1)*j], self.canvases[i]);
         }
       }
       signals[i] = signal;
