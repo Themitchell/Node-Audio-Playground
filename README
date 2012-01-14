@@ -1,9 +1,17 @@
-Ok a little info..
+== Audio Sockets
 
-This project started out as originally an experiment in fiddling with Firefox's Audio Api. Since then the idea to simply render audio from the browser has been changed a lot. 
+This project originally started as an experiment with the Firefox Audio API. Since then the idea has grown with the inclusion of node.js to try to create a live, collaborative audio interface in the browser. I am using the express module here for http requests alongside socket.io for web sockets. The app also makes use of Corban Brook's Digital Signal Processing library, dsp.js. This is used on the client side tohelp process the audio in the browser.
 
-I have now implemented the node backend to this system which allows messages to be communicated very quickly from one browser to antoher. Now we just need to actually work out the audio stuff and build us a DAW in the browser!
 
-So the project uses node for messages alongside Express and Socket.io packages for the server side.
+== Browser Compatability
 
-The app has widest support in Firefox. Using Firefox's audio api we have much more control over audio. I am however yet to see how far we can push this in other browsers.
+At the time of starting this project I wasn't aware of any other audio APIs available in the browser. Since then it seems that Google have also suggested an audio API implementation for webkit based browsers. Currently this app only works with the Mozilla API version and will therefore only work in Firefox. There are plans in the future however to look into Google's API to see how this works.
+
+
+== Forking
+
+Please feel free to fork this project as you wish. I have used this project as a way of learning javascript so it wold be great to see how people can extend the app or suggest better ways to carry out the processes involved.
+
+== License
+
+* http://www.opensource.org/licenses/MIT
