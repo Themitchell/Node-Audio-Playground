@@ -82,4 +82,10 @@ io.sockets.on('connection', function(socket) {
 	  instruments.update_identifier(instrument_identifier);
 		io.sockets.emit('sendvolumechannelinstrument', instrument_identifier);
 	});
+	
+	socket.on('changedGraphicEq', function(instrument_identifier) {
+	  console.log("Changing equalisation of Instrument: " + instrument_identifier.id);
+	  instruments.update_identifier(instrument_identifier);
+		io.sockets.emit('sendGraphicEq', instrument_identifier);
+	});
 });
