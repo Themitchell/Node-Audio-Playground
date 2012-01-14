@@ -6,6 +6,7 @@ function Channel(socket, instrument, sound_source, current_identifier) {
   this.element      = $("<div class='channel_strip' id='" + current_identifier.type + "'><h3>" + current_identifier.type + "</h3></div>");
   this.output       = new Audio();
   this.output.mozSetup(instrument.channels, instrument.rate);
+  this.buffers      = new Array();
   
   
   this.output.addEventListener('loadedmetadata', function() {
@@ -25,11 +26,21 @@ function Channel(socket, instrument, sound_source, current_identifier) {
   }, false);
   
   function process(input) {
-    var signal  = self.equaliser.process(input);
-
-    self.output.mozWriteAudio([]);
-    self.output.mozWriteAudio(signal);
-    self.meter.do_your_thing(signal);
+    
+    self.buffers.push(input);
+    // If there's buffered data, write that  
+    while(self.buffers.length > 0) {
+      var buffer = self.buffers.shift();
+      var signal  = self.equaliser.process(input);
+      var written = self.output.mozWriteAudio(signal);
+      self.meter.do_your_thing(signal);
+          
+      // If all data wasn't written, keep it in the buffers:  
+      if(written < buffer.length) {  
+        self.buffers.unshift(buffer.slice(written));  
+        return;  
+      }
+    }
   }
   self.process = process;
 }

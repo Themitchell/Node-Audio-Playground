@@ -25,7 +25,7 @@ function SoundSource(socket, instrument, sound_bank, current_identifier) {
                 Oscillators therefore do not trigger the listener and cannot therefore meter or write currently
       */
       if (current_identifier.type == 'osc') {
-        self.audio.mozWriteAudio(this.sound_samples);
+        self.audio.mozWriteAudio(this.sound_samples)
       } else {
         self.audio.currentTime = 0;
         self.audio.play();
