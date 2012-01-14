@@ -10,7 +10,7 @@ function Channel(socket, instrument, sound_source, current_identifier) {
   
   this.output.addEventListener('loadedmetadata', function() {
     self.equaliser    = new Equaliser(socket, sound_source, instrument.rate, current_identifier);
-    self.inserts      = $("<div class=\"inserts\"></div>").append(self.equaliser.toggle_window.button, self.equaliser.element);
+    self.inserts      = $("<div class=\"inserts\"></div>").append(self.equaliser.floating_window.toggle.button, self.equaliser.floating_window.element);
 
     self.volume       = new Volume(socket, this, sound_source, current_identifier);
     self.meter        = new Meter(sound_source, instrument.channels, instrument.rate, this, current_identifier);
