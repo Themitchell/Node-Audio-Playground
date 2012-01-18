@@ -9,7 +9,7 @@ var instruments = require('./lib/instruments.js')
 app.configure(function(){
   app.use(express.static(__dirname + '/public'));
 });
-app.listen(8080);
+app.listen(8000);
 
 
 // routing

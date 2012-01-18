@@ -1,6 +1,6 @@
 function Connection() {
   var self = this;
-  this.socket = io.connect('http://localhost:8080');
+  this.socket = io.connect('http://localhost:8000');
   this.username;
   this.username_element = $("<span id=\"username\"></span>");
   this.connected_element = $('<ul></ul>');
