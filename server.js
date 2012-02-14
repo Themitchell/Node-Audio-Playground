@@ -3,6 +3,7 @@ var socketio    = require('socket.io');
 var redis       = require('redis');
 var _           = require('underscore')._;
 var backbone    = require('backbone');
+var ejs         = require('ejs');
 
 var models      = require('./app/models/models');
 var AppModel    = new models.AppModel
@@ -20,8 +21,9 @@ store.on("error", function (err) {
 });
 
 
-
 app.configure( function() {
+  app.set('view engine', require('ejs'));
+  app.set('views', __dirname + '/app/views');
   app.use(express.static(__dirname + '/public'));
 });
 
@@ -35,8 +37,16 @@ app.get('/*.(js|css)', function(req, res){
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/app/views/index.html');
 });
+
+
+var messages = [
+  { username: 'tobi', body: 'hey douchebags' },
+  { username: 'loki', body: 'wahoo troll!' },
+  { username: 'jane', body: 'lame... omgwtflmfaorofl its a flying pig!' }
+];
+
 app.get('/chat', function (req, res) {
-  res.sendfile(__dirname + '/app/views/chat.html');
+  res.render('messages/index.ejs', { messages: messages });
 });
 
 app.listen(8000);
