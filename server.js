@@ -1,23 +1,53 @@
 var express     = require('express')
+var socketio    = require('socket.io');
+var redis       = require('redis');
+var _           = require('underscore')._;
+var backbone    = require('backbone');
+
+var models      = require('./app/models/models');
+var AppModel    = new models.AppModel
+
+var global      = require('./config/globals.js');
+var sessions    = require('./lib/sessions.js');
+var instruments = require('./lib/instruments.js');
+
 var app         = express.createServer()
-var io          = require('socket.io').listen(app);
-var global      = require('./config/globals.js')
-var sessions    = require('./lib/sessions.js')
-var instruments = require('./lib/instruments.js')
+var io          = socketio.listen(app);
+var store       = redis.createClient();
+
+store.on("error", function (err) {
+  console.log("Error " + err);
+});
 
 
-app.configure(function(){
+
+app.configure( function() {
   app.use(express.static(__dirname + '/public'));
 });
-app.listen(8000);
+
 
 
 // routing
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/views/index.html');
+app.get('/*.(js|css)', function(req, res){
+  res.sendfile('./'+req.url);
 });
 
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '/app/views/index.html');
+});
+app.get('/chat', function (req, res) {
+  res.sendfile(__dirname + '/app/views/chat.html');
+});
+
+app.listen(8000);
+
+
 io.sockets.on('connection', function(socket) {
+  console.log('Socket connected: ' + socket.id);
+
+  // subscribe.on("addUser", function(username) {
+  //     client.send(message);
+  // });
   
   // USER EVENTS
   socket.on('addUser', function(username) {
@@ -89,3 +119,35 @@ io.sockets.on('connection', function(socket) {
 		io.sockets.emit('sendGraphicEq', instrument_identifier);
 	});
 });
+
+
+// var io      = require('socket.io');
+// var express = require('express');
+// var app     = express.createServer();
+// 
+// io = io.listen(app);
+// 
+// app.listen('3000');
+// var pub = require('node_redis').createClient(); //publish cli
+// var redis = require('node_redis').createClient(); //sub cli
+// redis.psubscribe('*');  
+// 
+// redis.on('pmessage',function(pat,ch,msg){
+//     io.sockets.in(ch).emit('news',msg);
+// });
+// 
+// io.sockets.on('connection',function(socket){
+//     console.log('Socket connected: ' + socket.id);
+// 
+//     socket.on('channel',function(ch){
+//         socket.join(ch)
+// 
+//          //Publishing data on ch
+//          pub.publish(ch,"Hello " + ch);  
+//     });
+// 
+// 
+//     socket.on('disconnect',function(){
+//         console.log('Socket dis connected: ' + socket.id);
+//     });
+// });

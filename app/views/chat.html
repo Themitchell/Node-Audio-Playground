@@ -1,0 +1,57 @@
+<title>nodechat</title>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="./lib/underscore.js"></script>
+<script type="text/javascript" src="./lib/backbone.js"></script>
+<script type="text/javascript" src="./app/models/models.js"></script>
+
+<script src="/javascripts/utils.js"></script>
+<script src="/javascripts/init.js"></script>
+<script src="/javascripts/chat.js"></script>
+<script src="/javascripts/connection.js"></script>
+
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/reset.css">
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/main.css">
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/header.css">
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/buttons.css">
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/channels.css">
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/eqs.css">
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/triggers.css">
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/chat.css">
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/floating_windows.css">
+
+<div id="container">
+
+  <div id="user"></div>
+
+  <div class="dual_column">
+    
+    <div id="connected_users"></div>
+
+    <div id="chat"></div>
+
+  </div>
+</div>
+      <!-- body
+    #heading
+      h1 nodechat
+    #content
+      p 
+        | connected clients
+        span#client_count 0
+      p
+        | Fun Chat Messages
+        ul#chat_list
+
+      form(method="post", action="#", onsubmit="return false")#messageForm
+        p
+          label Name:
+            input(type='text', name='user_name')
+        p
+          label Message:
+            input(type='text', name='message')
+            input(type='submit', value='send')
+
+    #footer -->
