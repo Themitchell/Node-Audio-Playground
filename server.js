@@ -35,7 +35,7 @@ app.get('/*.(js|css)', function(req, res){
 });
 
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/app/views/index.html');
+  res.render('home/index.ejs', { messages: messages });
 });
 
 
