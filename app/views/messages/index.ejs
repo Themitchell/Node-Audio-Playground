@@ -2,11 +2,20 @@
     
   <div id="connected_users"></div>
 
-  <div id="chat"></div>
+  <div id="chat">
+    <h2>Stream</h2>
+    <input id="message" />
+    <input type="button" id="send_button" value="send" />
+    <ul id="stream">
+      <% _.each(messages, function(message) { %>
+        <li><b><%= message.username %>:</b> <%= message.body %></li>
+      <% }); %>
+    </ul>
+  </div>
 
 </div>
 
-<script src="/javascripts/init.js"></script>
+<!-- <script src="/javascripts/init.js"></script> -->
       <!-- body
     #heading
       h1 nodechat
