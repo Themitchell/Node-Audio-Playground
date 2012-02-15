@@ -7,8 +7,8 @@
     <input id="message" />
     <input type="button" id="send_button" value="send" />
     <ul id="stream">
-      <% _.each(messages, function(message) { %>
-        <li><b><%= message.username %>:</b> <%= message.body %></li>
+      <% _.each(messages.models, function(message) { %>
+        <li><b><%= message.get('username') %>:</b> <%= message.get('body') %></li>
       <% }); %>
     </ul>
   </div>
