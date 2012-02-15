@@ -1,11 +1,11 @@
 function Chat(connection) {
   var self         = this;
   this.element     = document.getElementById('chat');
-  this.message_box = $("<input id=\"message\" />");
-	this.send_button = $("<input type=\"button\" id=\"send_button\" value=\"send\" />");	
-	this.stream      = $("<ul id=\"stream\"></ul>");
+  this.message_box = $("input#message");
+	this.send_button = $("input#send_button");	
+	this.stream      = $("ul#stream");
   
-	$(this.element).append("<h2>Stream</h2>", this.message_box, this.send_button, this.stream);
+	$(this.element).append(this.message_box, this.send_button, this.stream);
 	
 	// On clicking SEND
   this.send_button.click( function() {
