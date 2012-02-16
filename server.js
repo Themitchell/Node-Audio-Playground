@@ -45,6 +45,24 @@ app.get('/chat', function (req, res) {
 app.listen(8000);
 
 
+store.lrange('messages', -10, -1, function(err, data) {
+    if (data) {
+        _.each(data, function(jsonMessage) {
+            var message = new models.Message();
+            message.mport(jsonMessage);
+            AppModel.messages.add(message);
+        });
+
+        console.log('Revived ' + AppModel.messages.length + ' messages');
+    }
+    else {
+        console.log('No data returned for key');
+    }
+});
+
+
+
+
 io.sockets.on('connection', function(socket) {
   // subscribe.on("addUser", function(username) {
   //     client.send(message);
@@ -79,11 +97,24 @@ io.sockets.on('connection', function(socket) {
 	
 	
 	// CHAT EVENTS
-	socket.on('sendChatMessage', function(message_body) {
-	  var message = new models.Message({ username: socket.username, body: message_body });
+	socket.on('sendChatMessage', function(message_body) {	  
 	  
-	  AppModel.messages.add(message);
-		io.sockets.emit('updateChatMessage', message.get('username'), message.get('body'));
+	  store.incr('next.message.id', function(err, newId) {
+	    var message = new models.Message({
+	      id:       newId,
+	      username: socket.username,
+	      body:     message_body
+	    });
+      AppModel.messages.add(message);
+      store.rpush('messages', message.xport(), redis.print);
+      store.bgsave();
+
+      io.sockets.emit('updateChatMessage', message.get('username'), message.get('body'));
+      // socket.broadcast({
+      //     event: 'chat',
+      //     data:chat.xport()
+      // }); 
+    });
 	});
 
 
