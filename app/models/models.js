@@ -1,5 +1,6 @@
 (function () {
-    var server = false, models;
+    var server = false;
+    var models;
     if (typeof exports !== 'undefined') {
         _ = require('underscore')._;
         Backbone = require('backbone');
@@ -11,16 +12,11 @@
     }
     
     models.Message = Backbone.Model.extend({});
-
-    // models.ClientCountModel = Backbone.Model.extend({
-    //   defaults: {
-    //       "clients": 0
-    //   },
-    // 
-    //   updateClients: function(clients){
-    //       this.set({clients: clients});
-    //   }
-    // });
+    
+    models.Messages = Backbone.Collection.extend({
+        model: models.Message
+    });
+    
 
     models.AppModel = Backbone.Model.extend({
       defaults: {
@@ -32,10 +28,6 @@
       }
     });
 
-    models.Messages = Backbone.Collection.extend({
-        model: models.Message
-    });
-    
     Backbone.Model.prototype.xport = function (opt) {
         var result = {},
         settings = _({recurse: true}).extend(opt || {});

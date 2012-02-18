@@ -1,40 +1,16 @@
-<div class="dual_column">
+<div id="chat_wrapper" class="dual_column">
     
   <div id="connected_users"></div>
 
   <div id="chat">
     <h2>Stream</h2>
-    <input id="message" />
-    <input type="button" id="send_button" value="send" />
-    <ul id="stream">
-      <% _.each(messages.models, function(message) { %>
-        <li><b><%= message.get('username') %>:</b> <%= message.get('body') %></li>
-      <% }); %>
-    </ul>
+    
+    <form id="message_form" action="#" method="post" onsubmit="return false" >
+      <input name="message" id="message" />
+      <input type="submit" id="send_button" value="send" />
+    </form>
+    
+    <ul id="stream"></ul>
   </div>
 
 </div>
-
-<script src="/javascripts/init.js"></script>
-      <!-- body
-    #heading
-      h1 nodechat
-    #content
-      p 
-        | connected clients
-        span#client_count 0
-      p
-        | Fun Chat Messages
-        ul#chat_list
-
-      form(method="post", action="#", onsubmit="return false")#messageForm
-        p
-          label Name:
-            input(type='text', name='user_name')
-        p
-          label Message:
-            input(type='text', name='message')
-            input(type='submit', value='send')
-
-    #footer -->
-    

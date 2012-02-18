@@ -35,122 +35,140 @@ app.get('/*.(js|css)', function(req, res){
 });
 
 app.get('/', function (req, res) {  
-  res.render('home/index.ejs', { messages: AppModel.messages });
+  res.render('home/index.ejs');
 });
 
 app.get('/chat', function (req, res) {  
-  res.render('messages/index.ejs', { messages: AppModel.messages });
+  res.render('messages/index.ejs');
 });
 
-app.listen(8000);
 
 
+
+
+// Redis
 store.lrange('messages', -10, -1, function(err, data) {
-    if (data) {
-        _.each(data, function(jsonMessage) {
-            var message = new models.Message();
-            message.mport(jsonMessage);
-            AppModel.messages.add(message);
-        });
+  if (data) {
+    _.each(data, function(jsonMessage) {
+      var message = new models.Message();
+      message.mport(jsonMessage);
+      AppModel.messages.add(message);
+    });
 
-        console.log('Revived ' + AppModel.messages.length + ' messages');
-    }
-    else {
-        console.log('No data returned for key');
-    }
+    console.log('Revived ' + AppModel.messages.length + ' messages');
+  }
+  else {
+    console.log('No data returned for key');
+  }
 });
 
 
 
 
-io.sockets.on('connection', function(socket) {
-  // subscribe.on("addUser", function(username) {
-  //     client.send(message);
-  // });
+
+
+
+io.sockets.on('connection', function(client) {
   
-  // USER EVENTS
-  socket.on('addUser', function(username) {
-	  socket.username = username;
-	  sessions.all_entries.push(username);
-	  
-	  socket.emit('createMenu', instruments.accepted_types);
-	  socket.emit('setCurrentUser', username);
-    io.sockets.emit('updateConnectedUsers', sessions.all_entries);
-    
-    socket.emit('updateChatMessage', 'SERVER', 'You have connected as ' + username);
-    for (var i=0; i<instruments.all_entries.length; i++) {
-      var identifier = instruments.all_entries[i];
-      console.log("New Instrument: " + identifier.id + " created from existing instruments in pool");
-      console.log(identifier.volume_fader_value);
-      socket.emit('createInstrument', socket.username, identifier); 
-    }
-    socket.broadcast.emit('updateChatMessage', 'SERVER', username + ' has connected');
-	});
-	
-	socket.on('disconnect', function() {
-	  if (sessions.all_entries.length == 1) { instruments.all_entries = new Array()}
-    sessions.remove_entry(socket.username);
-		io.sockets.emit('updateConnectedUsers', sessions.all_entries);
-    socket.broadcast.emit('updateChatMessage', 'SERVER', socket.username + ' has disconnected');
-	});
+  initChat(client);
+  
+  //   // USER EVENTS
+  //   client.on('addUser', function(username) {
+  //   client.username = username;
+  //   sessions.all_entries.push(username);
+  //   
+  //   client.emit('createMenu', instruments.accepted_types);
+  //   client.emit('setCurrentUser', username);
+  //     io.sockets.emit('updateConnectedUsers', sessions.all_entries);
+  //     
+  //     client.emit('updateChatMessage', 'SERVER', 'You have connected as ' + username);
+  //     for (var i=0; i<instruments.all_entries.length; i++) {
+  //       var identifier = instruments.all_entries[i];
+  //       console.log("New Instrument: " + identifier.id + " created from existing instruments in pool");
+  //       console.log(identifier.volume_fader_value);
+  //       client.emit('createInstrument', client.username, identifier); 
+  //     }
+  //     client.broadcast.emit('updateChatMessage', 'SERVER', username + ' has connected');
+  // });
+  // 
+  // client.on('disconnect', function() {
+  //   clientDisconnect(client, io, sessions, instruments)
+  // });
 	
 	
 	
 	// CHAT EVENTS
-	socket.on('sendChatMessage', function(message_body) {	  
-	  
-	  store.incr('next.message.id', function(err, newId) {
-	    var message = new models.Message({
-	      id:       newId,
-	      username: socket.username,
-	      body:     message_body
-	    });
-      AppModel.messages.add(message);
-      store.rpush('messages', message.xport(), redis.print);
-      store.bgsave();
-
-      io.sockets.emit('updateChatMessage', message.get('username'), message.get('body'));
-      // socket.broadcast({
-      //     event: 'chat',
-      //     data:chat.xport()
-      // }); 
-    });
+	client.on('message', function(sent_message) {	 
+    doMessage(client, io, sent_message)
 	});
 
 
-  // AUDIO EVENTS
-	socket.on('sendCreateInstrument', function(instrument_type) {
-	  var instrument_identifier = instruments.create_identifier(instrument_type);
-	  console.log("Creating Instrument: " + instrument_identifier.id);
-    io.sockets.emit('createInstrument', socket.username, instrument_identifier);
-	});
-	
-	socket.on('triggerinstrument', function(instrument_identifier) {
-	  console.log("Triggering Instrument: " + instrument_identifier.id);
-		io.sockets.emit('sendtriggerinstrument', instrument_identifier);
-	});
-	
-	socket.on('mutechannelinstrument', function(instrument_identifier) {
-	  console.log("Muting Instrument: " + instrument_identifier.id);
-	  instruments.update_identifier(instrument_identifier);
-		io.sockets.emit('sendmutechannelinstrument', instrument_identifier);
-	});
-	
-	socket.on('solochannelinstrument', function(instrument_identifier) {
-	  console.log("Soloing Instrument: " + instrument_identifier.id);
-	  instruments.update_identifier(instrument_identifier);
-		io.sockets.emit('sendsolochannelinstrument', instrument_identifier);
-	});
-	
-	socket.on('volumechannelinstrument', function(instrument_identifier) {
-	  console.log("Changing volume of Instrument: " + instrument_identifier.id);
-	  instruments.update_identifier(instrument_identifier);
-		io.sockets.emit('sendvolumechannelinstrument', instrument_identifier);
-	});
-	
-	socket.on('changedGraphicEq', function(instrument_identifier) {
-	  console.log("Changing equalisation of Instrument: " + instrument_identifier.id);
-	  instruments.update_identifier(instrument_identifier);
-		io.sockets.emit('sendGraphicEq', instrument_identifier);
-	});
+  //   // AUDIO EVENTS
+  // client.on('sendCreateInstrument', function(instrument_type) {
+  //   var instrument_identifier = instruments.create_identifier(instrument_type);
+  //   console.log("Creating Instrument: " + instrument_identifier.id);
+  //     io.sockets.emit('createInstrument', client.username, instrument_identifier);
+  // });
+  // 
+  // client.on('triggerinstrument', function(instrument_identifier) {
+  //   console.log("Triggering Instrument: " + instrument_identifier.id);
+  //  io.sockets.emit('sendtriggerinstrument', instrument_identifier);
+  // });
+  // 
+  // client.on('mutechannelinstrument', function(instrument_identifier) {
+  //   console.log("Muting Instrument: " + instrument_identifier.id);
+  //   instruments.update_identifier(instrument_identifier);
+  //  io.sockets.emit('sendmutechannelinstrument', instrument_identifier);
+  // });
+  // 
+  // client.on('solochannelinstrument', function(instrument_identifier) {
+  //   console.log("Soloing Instrument: " + instrument_identifier.id);
+  //   instruments.update_identifier(instrument_identifier);
+  //  io.sockets.emit('sendsolochannelinstrument', instrument_identifier);
+  // });
+  // 
+  // client.on('volumechannelinstrument', function(instrument_identifier) {
+  //   console.log("Changing volume of Instrument: " + instrument_identifier.id);
+  //   instruments.update_identifier(instrument_identifier);
+  //  io.sockets.emit('sendvolumechannelinstrument', instrument_identifier);
+  // });
+  // 
+  // client.on('changedGraphicEq', function(instrument_identifier) {
+  //   console.log("Changing equalisation of Instrument: " + instrument_identifier.id);
+  //   instruments.update_identifier(instrument_identifier);
+  //  io.sockets.emit('sendGraphicEq', instrument_identifier);
+  // });
 });
+
+function initChat(client) {  
+  _.each(AppModel.messages.models, function(message) {
+    client.emit('message', message.xport());
+  });
+}
+
+function doMessage(client, io, sent_message) {
+  var message = new models.Message();
+  message.mport(sent_message);
+
+  store.incr('next.message.id', function(err, new_id) {
+    message.set({ id: new_id });
+    AppModel.messages.add(message);
+
+    console.log('(' + client.sessionId + ') ' + message.get('id') + ' ' + message.get('username') + ': ' + message.get('body'));
+
+    store.rpush('messages', message.xport(), redis.print);
+    store.bgsave();
+    
+    client.emit( 'message', message.xport());
+    client.broadcast.emit( 'message', message.xport());
+  });
+}
+
+function clientDisconnect(client, io, sessions, instruments) {
+  if (sessions.all_entries.length == 1) { instruments.all_entries = new Array() }
+  sessions.remove_entry(client.username);
+  io.sockets.emit('updateConnectedUsers', sessions.all_entries);
+  client.broadcast.emit('updateChatMessage', 'SERVER', client.username + ' has disconnected');
+}
+
+app.listen(8000);
