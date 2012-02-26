@@ -1,10 +1,6 @@
 /* TRIGGERS */
 
-#trigger_bank {
-  height: 88px;
-}
-
-#trigger_bank .trigger {
+.trigger {
   -moz-border-radius: 4px;
   border-radius: 4px;
   border: 2px solid black;
@@ -17,6 +13,6 @@
   cursor: pointer;
 }
 
-#trigger_bank .trigger h3 {
+.trigger h3 {
   text-align: center;
 }

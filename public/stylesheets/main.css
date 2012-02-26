@@ -1,9 +1,6 @@
 /* GENERIC */
 
 #instruments,
-#transport,
-#mixer,
-#trigger_bank,
 .dual_column {
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -13,6 +10,11 @@
   overflow-x: scroll;
   padding: 5px;
   margin-bottom: 8px;
+}
+
+.instrument {
+  border: 1px solid black;
+  width: 100px;
 }
 
 .dual_column {

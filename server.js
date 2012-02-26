@@ -125,11 +125,10 @@ io.sockets.on('connection', function(client) {
     //     console.log("Creating Instrument: " + instrument_identifier.id);
     //       io.sockets.emit('createInstrument', client.username, instrument_identifier);
   });
-  // 
-  // client.on('triggerinstrument', function(instrument_identifier) {
-  //   console.log("Triggering Instrument: " + instrument_identifier.id);
-  //  io.sockets.emit('sendtriggerinstrument', instrument_identifier);
-  // });
+
+  client.on('trigger', function(instrument) {
+    doTrigger(client, io, instrument);
+  });
   // 
   // client.on('mutechannelinstrument', function(instrument_identifier) {
   //   console.log("Muting Instrument: " + instrument_identifier.id);
@@ -196,6 +195,11 @@ function doNewInstrument(client, io, sent_instrument) {
     client.emit( 'instrument', instrument.xport());
     client.broadcast.emit( 'instrument', instrument.xport());
   });
+}
+
+function doTrigger(client, io, instrument) {
+  console.log('(' + client.sessionId + ') ' + 'Triggered: ' + instrument.get('id') + ' ' + instrument.get('type'));
+  io.sockets.emit('trigger', instrument);
 }
 
 function clientDisconnect(client, io, sessions, instruments) {

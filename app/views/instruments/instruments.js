@@ -1,13 +1,48 @@
-var InstrumentView = Backbone.View.extend({
-    tagName: 'li',
+var TriggerPadView = Backbone.View.extend({
+    tagName: "div",
+    className: "trigger"
+    
+    , initialize: function(options) {
+        $(this.el).append("<h2>" + this.model.get('type') + "</h2>");
+    }
+    
+    , render: function() {
+        return this;
+    }
+});
 
-    initialize: function(options) {
+// var SoundSource = Backbone.View.extend({
+//     tagName:    "audio",
+//     className:  "instrument"
+// 
+//     , initialize: function(options) {
+//         _.bindAll(this, 'render');
+//         this.model.bind('all', this.render);
+//     }
+// 
+//     , render: function() {
+//         var trigger = new TriggerView({ model: this.model , socket: this.socket })
+//         $(this.el).append("<h3>" + this.model.get('type') + "</h3>");
+//         $(this.el).append(trigger.render().el);
+//         
+//         return this;
+//     }
+// });
+
+var InstrumentView = Backbone.View.extend({
+    tagName:    "li",
+    className:  "instrument"
+
+    , initialize: function(options) {
         _.bindAll(this, 'render');
         this.model.bind('all', this.render);
-    },
+    }
 
-    render: function() {
-        $(this.el).append("<h2>" + this.model.get('type') + "</h2>");
+    , render: function() {
+        var trigger_pad_view = new TriggerPadView({ model: this.model })
+        $(this.el).append("<h3>" + this.model.get('type') + "</h3>");
+        $(this.el).append(trigger_pad_view.render().el);
+        
         return this;
     }
 });
@@ -15,8 +50,8 @@ var InstrumentView = Backbone.View.extend({
 var InstrumentsView = Backbone.View.extend({
     
     initialize: function(options) {
-      this.model.bind('add', this.addInstrument);
       this.socket = options.socket;
+      this.model.bind('add', this.addInstrument);
     }
 
     , events: {
@@ -24,7 +59,7 @@ var InstrumentsView = Backbone.View.extend({
     }
 
     , addInstrument: function(instrument) {
-      var view = new InstrumentView({ model: instrument, socket: this.socket });
+      var view = new InstrumentView({ model: instrument });
       $('#instruments').append(view.render().el);
     }
 
