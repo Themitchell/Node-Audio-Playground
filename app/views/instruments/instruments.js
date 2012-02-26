@@ -6,6 +6,15 @@ var TriggerPadView = Backbone.View.extend({
         $(this.el).append("<h2>" + this.model.get('type') + "</h2>");
     }
     
+    , events: {
+      "click" : "sendTrigger"
+    }
+    
+    , sendTrigger: function() {
+      $(this.el).animate({ backgroundColor: "black"}, 6);
+      $(this.el).animate({ backgroundColor: "white"}, 6);
+    }
+    
     , render: function() {
         return this;
     }
@@ -39,10 +48,9 @@ var InstrumentView = Backbone.View.extend({
     }
 
     , render: function() {
-        var trigger_pad_view = new TriggerPadView({ model: this.model })
+        var trigger_pad = new TriggerPadView({ model: this.model }).render().el;
         $(this.el).append("<h3>" + this.model.get('type') + "</h3>");
-        $(this.el).append(trigger_pad_view.render().el);
-        
+        $(this.el).append(trigger_pad);      
         return this;
     }
 });
