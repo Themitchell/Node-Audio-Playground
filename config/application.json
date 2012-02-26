@@ -1,0 +1,10 @@
+/* Copy this to ./config/application.json and fill out the necessary information */
+
+{
+  "title": "Aud.io",
+
+  "server": {
+      "port": 8000,
+      "host": "localhost"
+  }
+}

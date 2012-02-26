@@ -1,1 +1,0 @@
-exports.sessions = new Array();

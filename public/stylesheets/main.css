@@ -13,8 +13,11 @@
 }
 
 .instrument {
-  border: 1px solid black;
-  width: 100px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 2px solid black;
+  padding:  4px;
+  width: 90px;
 }
 
 .dual_column {
