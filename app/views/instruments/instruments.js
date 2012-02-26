@@ -72,7 +72,6 @@ var InstrumentsView = Backbone.View.extend({
     , sendInstrument: function() {
         var instrument_name = $('#options select').val();
         var instrument = new models.Instrument({ type: instrument_name });
-        debugger
         this.socket.emit('instrument', instrument.xport());
     }
 });

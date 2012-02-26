@@ -2,56 +2,59 @@
 
 #instruments,
 .dual_column {
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  background-color: white;
-  margin-left: auto;
-  margin-right: auto;
-  overflow-x: scroll;
-  padding: 5px;
-  margin-bottom: 8px;
+  -moz-border-radius:     4px;
+  border-radius:          4px;
+  background-color:       white;
+  margin-left:            auto;
+  margin-right:           auto;
+  overflow-x:             scroll;
+  padding:                5px;
+  margin-bottom:          8px;
 }
 
 .instrument {
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  border: 2px solid black;
-  padding:  4px;
-  width: 90px;
+  list-style-type:        none;
+  float:                  left;
+  -moz-border-radius:     4px;
+  border-radius:          4px;
+  border:                 2px solid black;
+  padding:                4px;
+  width:                  90px;
+  margin-right:           5px;
 }
 
 .dual_column {
-  padding: 0.6%;
-  height: 360px;
-  overflow: hidden;
+  padding:                0.6%;
+  height:                 360px;
+  overflow:               hidden;
 }
 
 
 /* Print */
 #print div {
-  width: 2px;
-  height: 2px;
-  margin: 0 4px 4px 0;
-  background-color: white;
-  display: inline-block;
+  width:                  2px;
+  height:                 2px;
+  margin:                 0 4px 4px 0;
+  background-color:       white;
+  display:                inline-block;
 }
 
 /* SLIDERS */
 .ui-slider-vertical {
-  -moz-border-radius: 1px;
-  border-radius: 1px;
-  border: 2px solid black;
-  width: 10px;
+  -moz-border-radius:     1px;
+  border-radius:          1px;
+  border:                 2px solid black;
+  width:                  10px;
 }
 .ui-slider-vertical .ui-state-default {
-  background: transparent url(/images/fader_arrow.png) no-repeat scroll 50% 50%;
-  border: none;
-  left: 0;
-  width: 10px;
-  height: 11px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  background:             transparent url(/images/fader_arrow.png) no-repeat scroll 50% 50%;
+  border:                 none;
+  left:                   0;
+  width:                  10px;
+  height:                 11px;
+  -moz-border-radius:     2px;
+  border-radius:          2px;
 }
 .ui-slider-vertical {
-  height: 230px;
+  height:                 230px;
 }
