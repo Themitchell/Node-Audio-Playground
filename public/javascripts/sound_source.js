@@ -3,7 +3,7 @@ function SoundSource(socket, instrument, sound_bank, current_identifier) {
   
   var sound_bank    = document.getElementById("sound_bank");
   
-  this.trigger_pad  = new TriggerPad(socket, sound_bank, current_identifier);
+  this.trigger_pad  = new TriggerPad(socket, sound_bank, current_identifier.type);
   this.audio        = new Audio();
   this.audio.volume = 0;
   

@@ -1,4 +1,4 @@
-<script src="/socket.io/socket.io.js"></script>
+<!-- <script src="/socket.io/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -7,9 +7,9 @@
 <script src="/javascripts/init_instruments.js"></script>
 <script src="/javascripts/connection.js"></script>
 <script src="/javascripts/menu.js"></script>
-<script src="/javascripts/chat.js"></script>
+<script src="/javascripts/chat.js"></script> -->
 <!-- <script src="/javascripts/transport.js"></script> -->
-<script src="/javascripts/instrument.js"></script>
+<!-- <script src="/javascripts/instrument.js"></script>
 <script src="/javascripts/channel.js"></script>
 <script src="/javascripts/meter.js"></script>
 <script src="/javascripts/floating_window.js"></script>
@@ -30,30 +30,41 @@
 <link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/eqs.css">
 <link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/triggers.css">
 <link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/chat.css">
-<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/floating_windows.css">
+<link rel="stylesheet" type="text/css" media="screen, projection, print" href="stylesheets/floating_windows.css"> -->
 
 
 
-<div id="container">
-  <div id="user"></div>
-
-  <ul id="options"></ul>
-
-  <div id="mixer"></div>
-
+<div id="instruments">
+  <form id="options" action="#" method="post" onsubmit="return false" >
+    <select>
+      <option value="kick">Kick</option>
+      <option value="snare">Snare</option>
+      <option value="long-hat">Open Hi-hat</option>
+      <option value="short-hat">Closed Hi-hat</option>
+      <option value="osc">Simple Oscillator</option>
+    </select>
+    
+    <input type="submit" id="send_button" value="Create Instrument" />
+  </form>
+  
+  <!-- <div id="mixer"></div>
   <div id="trigger_bank"></div>
+  <div id="sound_bank"></div> -->
+  
+
+<!--   <div id="trigger_bank"></div>
 
   <div id="sound_bank"></div>
 
-  <div id="printer"></div>
+  <div id="printer"></div> -->
   
   <!-- <div id="transport"></div> -->
 
-  <div class="dual_column">
+<!--   <div class="dual_column">
     
     <div id="connected_users"></div>
 
     <div id="chat"></div>
     
-  </div>
+  </div> -->
 </div>

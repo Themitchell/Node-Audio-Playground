@@ -17,6 +17,11 @@
         model: models.Message
     });
     
+    models.Instrument = Backbone.Model.extend({});
+    
+    models.Instruments = Backbone.Collection.extend({
+        model: models.Instrument
+    });
 
     models.AppModel = Backbone.Model.extend({
       defaults: {
@@ -24,7 +29,8 @@
       },
 
       initialize: function() {
-          this.messages = new models.Messages(); 
+          this.messages     = new models.Messages();
+          this.instruments  = new models.Instruments(); 
       }
     });
 

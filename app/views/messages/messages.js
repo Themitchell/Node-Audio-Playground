@@ -12,9 +12,6 @@ var MessageView = Backbone.View.extend({
     }
 });
 
-
-
-
 var MessagesView = Backbone.View.extend({
     initialize: function(options) {
       this.model.bind('add', this.addMessage);
@@ -39,7 +36,7 @@ var MessagesView = Backbone.View.extend({
     , sendMessage: function() {
         var message_field = $('input[name=message]');
         var message = new models.Message({ username: "A Username", body: message_field.val()});
-        this.socket.send(message.xport());
+        this.socket.emit('message', message.xport());
         message_field.val('');
     }
 });

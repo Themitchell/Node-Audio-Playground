@@ -1,9 +1,9 @@
-function TriggerPad(socket, sound_bank, current_identifier) {
+function TriggerPad(socket, sound_bank, type) {
 
   var self = this;
 
   var trigger_bank  = document.getElementById("trigger_bank");
-  this.element      = $("<div class='trigger'><h3>" + current_identifier.type + "</h3></div>");
+  this.element      = $("<div class='trigger'><h3>" + type + "</h3></div>");
   $(trigger_bank).append(this.element)
   
 

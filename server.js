@@ -35,7 +35,7 @@ app.get('/*.(js|css)', function(req, res){
 });
 
 app.get('/', function (req, res) {  
-  res.render('home/index.ejs');
+  res.render('instruments/index.ejs');
 });
 
 app.get('/chat', function (req, res) {  
@@ -56,6 +56,21 @@ store.lrange('messages', -10, -1, function(err, data) {
     });
 
     console.log('Revived ' + AppModel.messages.length + ' messages');
+  }
+  else {
+    console.log('No data returned for key');
+  }
+});
+
+store.lrange('instruments', -40, -1, function(err, data) {
+  if (data) {
+    _.each(data, function(jsonInstrument) {
+      var instrument = new models.Instrument();
+      instrument.mport(jsonInstrument);
+      AppModel.instruments.add(instrument);
+    });
+
+    console.log('Revived ' + AppModel.instruments.length + ' instruments');
   }
   else {
     console.log('No data returned for key');
@@ -103,12 +118,13 @@ io.sockets.on('connection', function(client) {
 	});
 
 
-  //   // AUDIO EVENTS
-  // client.on('sendCreateInstrument', function(instrument_type) {
-  //   var instrument_identifier = instruments.create_identifier(instrument_type);
-  //   console.log("Creating Instrument: " + instrument_identifier.id);
-  //     io.sockets.emit('createInstrument', client.username, instrument_identifier);
-  // });
+    // AUDIO EVENTS
+  client.on('instrument', function(sent_instrument) {
+    doNewInstrument(client, io, sent_instrument)
+    // var instrument_identifier = instruments.create_identifier(instrument_type);
+    //     console.log("Creating Instrument: " + instrument_identifier.id);
+    //       io.sockets.emit('createInstrument', client.username, instrument_identifier);
+  });
   // 
   // client.on('triggerinstrument', function(instrument_identifier) {
   //   console.log("Triggering Instrument: " + instrument_identifier.id);
@@ -161,6 +177,24 @@ function doMessage(client, io, sent_message) {
     
     client.emit( 'message', message.xport());
     client.broadcast.emit( 'message', message.xport());
+  });
+}
+
+function doNewInstrument(client, io, sent_instrument) {
+  var instrument = new models.Instrument();
+  instrument.mport(sent_instrument);
+
+  store.incr('next.instrument.id', function(err, new_id) {
+    instrument.set({ id: new_id });
+    AppModel.instruments.add(instrument);
+
+    console.log('(' + client.sessionId + ') ' + instrument.get('id') + ' ' + instrument.get('type'));
+
+    store.rpush('instruments', instrument.xport(), redis.print);
+    store.bgsave();
+    
+    client.emit( 'instrument', instrument.xport());
+    client.broadcast.emit( 'instrument', instrument.xport());
   });
 }
 
