@@ -17,7 +17,11 @@
         model: models.Message
     });
     
-    models.Instrument = Backbone.Model.extend({});
+    models.Instrument = Backbone.Model.extend({
+        defaults: {
+            "volume": 100
+        }
+    });
     
     models.Instruments = Backbone.Collection.extend({
         model: models.Instrument

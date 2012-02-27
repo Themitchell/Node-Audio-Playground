@@ -7,12 +7,12 @@ var TriggerPadView = Backbone.View.extend({
     }
     
     , events: {
-      "click" : "sendTrigger"
+        "click" : "sendTrigger"
     }
     
     , sendTrigger: function() {
-      $(this.el).animate({ backgroundColor: "black"}, 6);
-      $(this.el).animate({ backgroundColor: "white"}, 6);
+        $(this.el).animate({ backgroundColor: "black"}, 6);
+        $(this.el).animate({ backgroundColor: "white"}, 6);
     }
     
     , render: function() {
@@ -20,23 +20,35 @@ var TriggerPadView = Backbone.View.extend({
     }
 });
 
-// var SoundSource = Backbone.View.extend({
-//     tagName:    "audio",
-//     className:  "instrument"
-// 
-//     , initialize: function(options) {
-//         _.bindAll(this, 'render');
-//         this.model.bind('all', this.render);
-//     }
-// 
-//     , render: function() {
-//         var trigger = new TriggerView({ model: this.model , socket: this.socket })
-//         $(this.el).append("<h3>" + this.model.get('type') + "</h3>");
-//         $(this.el).append(trigger.render().el);
-//         
-//         return this;
-//     }
-// });
+var SoundSourceView = Backbone.View.extend({
+    tagName:    "audio"
+    
+    , initialize: function(options) {
+      this.el.volume = 0;
+      
+      this.el.src = 'samples/' + options.type + '.ogg';
+      this.el.setAttribute('class', 'file');
+    }
+
+    , render: function() {
+        return this;
+    }
+});
+
+var ChannelView = Backbone.View.extend({
+    tagName:    "audio"
+    
+    , initialize: function(options) {
+      this.el.volume = 0;
+      
+      this.el.src = 'samples/' + options.type + '.ogg';
+      this.el.setAttribute('class', 'file');
+    }
+
+    , render: function() {
+        return this;
+    }
+});
 
 var InstrumentView = Backbone.View.extend({
     tagName:    "li",
@@ -48,9 +60,10 @@ var InstrumentView = Backbone.View.extend({
     }
 
     , render: function() {
-        var trigger_pad = new TriggerPadView({ model: this.model }).render().el;
+        var trigger_pad   = new TriggerPadView({ model: this.model }).render().el;
+        var sound_source  = new SoundSourceView({ type: this.model.get('type') }).render().el;
         $(this.el).append("<h3>" + this.model.get('type') + "</h3>");
-        $(this.el).append(trigger_pad);      
+        $(this.el).append(trigger_pad, sound_source);      
         return this;
     }
 });
