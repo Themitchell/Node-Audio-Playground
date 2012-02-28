@@ -3,16 +3,15 @@ var TriggerPadView = Backbone.View.extend({
     className: "trigger"
     
     , initialize: function(options) {
-        $(this.el).append("<h2>" + this.model.get('type') + "</h2>");
+      
     }
     
     , events: {
         "click" : "sendTrigger"
     }
     
-    , sendTrigger: function() {
-        $(this.el).animate({ backgroundColor: "black"}, 6);
-        $(this.el).animate({ backgroundColor: "white"}, 6);
+    , sendTrigger: function(args) {
+        args.view.InstrumentsController.socket.emit('trigger', this.model)
     }
     
     , render: function() {
@@ -21,7 +20,7 @@ var TriggerPadView = Backbone.View.extend({
 });
 
 var SoundSourceView = Backbone.View.extend({
-    tagName:    "audio"
+    tagName: "audio"
     
     , initialize: function(options) {
       this.el.volume = 0;
@@ -29,23 +28,86 @@ var SoundSourceView = Backbone.View.extend({
       this.el.src = 'samples/' + options.type + '.ogg';
       this.el.setAttribute('class', 'file');
     }
+    
+    // , events: {
+    //     "loadedmetadata" : "inputReady"
+    // }
+    // 
+    // , inputReady: function() {
+    //     var channels      = this.mozChannels;
+    //     var rate          = this.mozSampleRate;
+    // }
 
     , render: function() {
         return this;
     }
 });
 
+var MuteView = Backbone.View.extend({
+    tagName: 'div',
+    className: 'toggle mute int_label'
+    
+    , initialize: function() {
+        var init_state_class = (this.model.muted == 1) ? 'on' : 'off'
+        this.$el.addClass(init_state_class);
+    }
+    
+    , render: function() {
+        return this;
+    }
+});
+
+var MeterView = Backbone.View.extend({
+    tagName: 'div',
+    className: 'meter'
+    
+    , initialize: function() {
+      
+    }
+    
+    , render: function() {
+        return this;
+    }
+});
+
+var VolumeView = Backbone.View.extend({
+    tagName: 'div',
+    className: 'fader'
+    
+    , initialize: function() {
+
+    }
+    
+    , render: function() {
+        
+        return this;
+    }
+})
+
 var ChannelView = Backbone.View.extend({
-    tagName:    "audio"
+    tagName: "div", 
+    className: "channel_strip"
     
     , initialize: function(options) {
-      this.el.volume = 0;
       
-      this.el.src = 'samples/' + options.type + '.ogg';
-      this.el.setAttribute('class', 'file');
     }
-
+    
     , render: function() {
+        var inserts   = $("<div class=\"inserts\"></div>");
+        var controls  = $("<div class='controls'></div>");
+        var buttons   = $("<div class='buttons'></div>");
+
+        
+        inserts.append();
+        
+        var volume  = new VolumeView({ model: this.model });
+        var meter   = new MeterView({});
+        controls.append(volume.render().el, meter.render().el);
+
+        var mute    = new MuteView({ model: this.model })
+        buttons.append(mute.render().el);
+        
+        this.$el.append(controls, inserts, buttons);
         return this;
     }
 });
@@ -62,8 +124,11 @@ var InstrumentView = Backbone.View.extend({
     , render: function() {
         var trigger_pad   = new TriggerPadView({ model: this.model }).render().el;
         var sound_source  = new SoundSourceView({ type: this.model.get('type') }).render().el;
-        $(this.el).append("<h3>" + this.model.get('type') + "</h3>");
-        $(this.el).append(trigger_pad, sound_source);      
+        var channel_strip = new ChannelView({ model: this.model }).render().el;
+
+        this.$el.append("<h3>" + this.model.get('type') + "</h3>");
+        this.$el.append(channel_strip, trigger_pad, sound_source);
+        
         return this;
     }
 });
@@ -72,7 +137,7 @@ var InstrumentsView = Backbone.View.extend({
     
     initialize: function(options) {
       this.socket = options.socket;
-      this.model.bind('add', this.addInstrument);
+      this.model.bind('add', this.addInstrument);      
     }
 
     , events: {
